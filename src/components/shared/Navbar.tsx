@@ -12,18 +12,20 @@ import {
 // import { Cog } from "lucide-react";
 import Link from "next/link";
 
-import NextLink from "next/link";
 import NavbarDropdown from "./NavbarDropdown";
+import { Logo } from "@/assets/icons";
 
 export default function Navbar() {
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar maxWidth="xl" position="sticky" className="bg-black">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            {/* <Logo /> */}
-            <p className="font-bold text-inherit">ACME</p>
-          </NextLink>
+          <Link className="flex justify-start items-center gap-1" href="/">
+            <Logo />
+            <p className="font-bold md:text-xl text-inherit">
+              Tech Tips & Tricks Hub
+            </p>
+          </Link>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
           {/* {siteConfig.navItems.map((item) => (
@@ -40,9 +42,9 @@ export default function Navbar() {
               </NextLink>
             </NavbarItem>
           ))} */}
-          <NextLink href="#" aria-current="page">
-            Customers
-          </NextLink>
+          <Link href="/" aria-current="page">
+            Home
+          </Link>
         </ul>
       </NavbarContent>
 
@@ -51,21 +53,23 @@ export default function Navbar() {
         justify="end"
       >
         {/* {user?.email ? ( */}
-        <NavbarItem className="hidden sm:flex gap-2">
+        {/* <NavbarItem className="hidden sm:flex gap-2">
           <NavbarDropdown />
+        </NavbarItem> */}
+        {/* ) : ( */}
+        <NavbarItem className="hidden sm:flex gap-2">
+          <Link href={"/login"}>
+            <Button color="primary">Login</Button>
+          </Link>
         </NavbarItem>
-        {/* ) : (
-          <NavbarItem className="hidden sm:flex gap-2">
-            <Button onClick={() => router.push("/login")}>Login</Button>
-          </NavbarItem>
-        )} */}
+        {/* )} */}
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <NavbarMenuToggle />
       </NavbarContent>
 
-      <NavbarMenu>
+      <NavbarMenu className="bg-black/10">
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {/* {siteConfig.navMenuItems.map((item, index) => ( */}
           <NavbarMenuItem
