@@ -12,11 +12,10 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div>
+    <section className="bg-white">
       <Navbar></Navbar>
-
       {children}
-    </div>
+    </section>
   );
 };
 

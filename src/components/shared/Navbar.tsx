@@ -9,13 +9,18 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/react";
-// import { Cog } from "lucide-react";
+
 import Link from "next/link";
 
 import NavbarDropdown from "./NavbarDropdown";
 import { Logo } from "@/assets/icons";
+import { useUser } from "@/context/user.provider";
 
 export default function Navbar() {
+  const { user } = useUser();
+
+  console.log(user);
+
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="bg-black">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -52,17 +57,17 @@ export default function Navbar() {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        {/* {user?.email ? ( */}
-        {/* <NavbarItem className="hidden sm:flex gap-2">
-          <NavbarDropdown />
-        </NavbarItem> */}
-        {/* ) : ( */}
-        <NavbarItem className="hidden sm:flex gap-2">
-          <Link href={"/login"}>
-            <Button color="primary">Login</Button>
-          </Link>
-        </NavbarItem>
-        {/* )} */}
+        {user?.email ? (
+          <NavbarItem className="hidden sm:flex gap-2">
+            <NavbarDropdown />
+          </NavbarItem>
+        ) : (
+          <NavbarItem className="hidden sm:flex gap-2">
+            <Link href={"/login"}>
+              <Button color="primary">Login</Button>
+            </Link>
+          </NavbarItem>
+        )}
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">

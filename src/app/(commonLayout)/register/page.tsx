@@ -11,11 +11,14 @@ import { useUserRegistration } from "@/hooks/auth.hook";
 import Loading from "@/components/UI/Loading";
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUser } from "@/context/user.provider";
 
 export default function RegisterPage() {
   const searchParams = useSearchParams();
 
   const router = useRouter();
+
+  const { setIsLoading: userLoading } = useUser();
 
   const {
     mutate: handleUserRegistration,
@@ -28,10 +31,13 @@ export default function RegisterPage() {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userData = {
       ...data,
+      coverPhoto: "https://flowbite.com/docs/images/examples/image-3@2x.jpg",
       profilePhoto: "https://i.ibb.co.com/GCH2Gjv/blank-profile-picture.webp",
     };
 
     handleUserRegistration(userData);
+
+    userLoading(true);
   };
 
   useEffect(() => {

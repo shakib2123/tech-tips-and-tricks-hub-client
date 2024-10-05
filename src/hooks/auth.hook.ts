@@ -26,7 +26,11 @@ export const useUserLogin = () => {
       toast.success("User login successful.");
     },
     onError: (error) => {
-      toast.error(error.message);
+      if (error.message.includes("404")) {
+        toast.error("User not found.");
+      } else {
+        toast.error(error.message);
+      }
     },
   });
 };

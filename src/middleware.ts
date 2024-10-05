@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import { getCurrentUser } from "./services/AuthService";
 
 const AuthRoutes = ["/login", "/register"];
 
@@ -16,9 +17,7 @@ export async function middleware(request: NextRequest) {
 
   console.log(pathname);
 
-  //   const user = await getCurrentUser();
-
-  const user = null;
+  const user = await getCurrentUser();
 
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
@@ -43,5 +42,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/profile", "/profile/:page*", "/admin", "/login", "/register"],
+  matcher: ["/profile", "/admin", "/login", "/register"],
 };
