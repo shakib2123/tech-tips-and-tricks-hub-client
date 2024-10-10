@@ -62,23 +62,6 @@ export const getCurrentUser = async () => {
   return decodedToken;
 };
 
-export const getCurrentUserFromDB = async () => {
-  const accessToken = cookies().get("accessToken")?.value;
-
-  if (accessToken) {
-    const res = await axiosInstance({
-      url: "/auth/current-user",
-      method: "GET",
-      withCredentials: true,
-      headers: {
-        cookies: `accessToken=${accessToken}`,
-      },
-    });
-
-    return res.data;
-  }
-};
-
 export const getNewAccessToken = async () => {
   try {
     const refreshToken = cookies().get("refreshToken")?.value;
