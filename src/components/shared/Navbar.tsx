@@ -19,8 +19,6 @@ import { useUser } from "@/context/user.provider";
 export default function Navbar() {
   const { user } = useUser();
 
-  console.log(user);
-
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="bg-black">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">

@@ -5,13 +5,14 @@ import THInput from "../form/THInput";
 import { Button } from "@nextui-org/react";
 import { useUpdateUserInfo } from "@/hooks/user.hook";
 import { IUser } from "@/types";
+import THTextarea from "../form/THTextarea";
 
 export const UserInfoUpdateModal = ({ userData }: { userData: IUser }) => {
   const { mutate: handleUpdateUserInfo, isPending } = useUpdateUserInfo();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    // console.log(data, "and", userEmail);
     const updatedData = {
+      bio: data.bio,
       location: data.location,
       website: data.website,
       mobileNumber: data.mobileNumber,
@@ -31,12 +32,14 @@ export const UserInfoUpdateModal = ({ userData }: { userData: IUser }) => {
         <THForm
           onSubmit={onSubmit}
           defaultValues={{
+            bio: userData.bio,
             location: userData.location,
             website: userData.website,
             mobileNumber: userData.mobileNumber,
           }}
         >
           <div className="space-y-4">
+            <THTextarea label="Bio" name="bio" required />
             <THInput label="Location" name="location" required />
             <THInput label="Website" name="website" type="url" required />
             <THInput label="Mobile Number" name="mobileNumber" required />

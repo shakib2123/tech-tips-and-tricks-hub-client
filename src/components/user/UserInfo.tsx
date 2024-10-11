@@ -1,17 +1,16 @@
 "use client";
 
 import { IUser } from "@/types";
-import { Button } from "@nextui-org/react";
 import { FaLocationDot, FaLink, FaPhone } from "react-icons/fa6";
 import { UserInfoUpdateModal } from "../modals/UserModal";
+import Link from "next/link";
 const UserInfo = ({ data }: { data: IUser }) => {
   return (
     <div className="basis-2/5 p-4 bg-slate-200 rounded-lg">
       <h2 className="text-xl font-bold">Intro</h2>
       {/* bio */}
-      <div className="flex flex-col gap-2 my-2">
-        {data?.bio && <p>{data?.bio}</p>}
-        <Button>{data?.bio ? "Edit bio" : "Add bio"}</Button>
+      <div className="flex flex-col gap-2 my-4">
+        {data?.bio && <p className="text-center px-4">{data?.bio}</p>}
       </div>
       {/* location  */}
       <div className="flex flex-col gap-2 my-4">
@@ -26,7 +25,9 @@ const UserInfo = ({ data }: { data: IUser }) => {
         {data?.website && (
           <p className="flex items-center gap-1">
             <FaLink />
-            {data?.website}
+            <Link href={data?.website} className="text-primary hover:underline">
+              {data?.website}
+            </Link>
           </p>
         )}
       </div>
