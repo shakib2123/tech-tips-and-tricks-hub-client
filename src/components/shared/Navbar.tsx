@@ -15,9 +15,25 @@ import Link from "next/link";
 import NavbarDropdown from "./NavbarDropdown";
 import { Logo } from "@/assets/icons";
 import { useUser } from "@/context/user.provider";
+import { logout } from "@/services/AuthService";
+import { protectedRoutes } from "@/constant/constant";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navbar() {
-  const { user } = useUser();
+  const router = useRouter();
+
+  const pathname = usePathname();
+
+  const { user, setIsLoading: userLoading } = useUser();
+
+  const handleLogout = () => {
+    logout();
+    userLoading(true);
+
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
+    }
+  };
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="bg-black">
@@ -31,22 +47,14 @@ export default function Navbar() {
           </Link>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {/* {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium"
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))} */}
           <Link href="/" aria-current="page">
-            Home
+            News Feed
+          </Link>
+          <Link href="/about-us" aria-current="page">
+            About Us
+          </Link>
+          <Link href="/contact-us" aria-current="page">
+            Contact Us
           </Link>
         </ul>
       </NavbarContent>
@@ -72,26 +80,64 @@ export default function Navbar() {
         <NavbarMenuToggle />
       </NavbarContent>
 
-      <NavbarMenu className="bg-black/10">
+      <NavbarMenu className="bg-black/10 text-gray-900">
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          {/* {siteConfig.navMenuItems.map((item, index) => ( */}
-          <NavbarMenuItem
-          // key={`${item}-${index}`}
-          >
-            <Link
-              // color={
-              //   index === 2
-              //     ? "primary"
-              //     : index === siteConfig.navMenuItems.length - 1
-              //     ? "danger"
-              //     : "foreground"
-              // }
-              href="#"
-            >
-              {/* {item.label} */} Customers
+          <NavbarMenuItem>
+            <Link href="/" className="w-full h-full">
+              <Button color="primary" className="w-full h-full">
+                News Feed
+              </Button>
             </Link>
           </NavbarMenuItem>
-          {/* ))} */}
+
+          <NavbarMenuItem>
+            <Link href="/profile" className="w-full h-full">
+              <Button color="primary" className="w-full h-full">
+                Profile
+              </Button>
+            </Link>
+          </NavbarMenuItem>
+
+          <NavbarMenuItem>
+            <Link href="/dashboard" className="w-full h-full">
+              <Button color="primary" className="w-full h-full">
+                Dashboard
+              </Button>
+            </Link>
+          </NavbarMenuItem>
+
+          <NavbarMenuItem>
+            <Link
+              href="/about-us"
+              aria-current="page"
+              className="w-full h-full"
+            >
+              <Button color="primary" className="w-full h-full">
+                About Us
+              </Button>
+            </Link>
+          </NavbarMenuItem>
+
+          <NavbarMenuItem>
+            <Link
+              href="/contact-us"
+              aria-current="page"
+              className="w-full h-full"
+            >
+              <Button color="primary" className="w-full h-full">
+                Contact Us
+              </Button>
+            </Link>
+          </NavbarMenuItem>
+          <NavbarMenuItem>
+            <Button
+              onClick={() => handleLogout()}
+              className="text-gray-50 w-full"
+              color="danger"
+            >
+              Logout
+            </Button>
+          </NavbarMenuItem>
         </div>
       </NavbarMenu>
     </NextUINavbar>

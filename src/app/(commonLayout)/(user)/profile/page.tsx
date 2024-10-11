@@ -1,6 +1,7 @@
 "use client";
 
 import { VerifiedBadge } from "@/assets/icons";
+import CreatePost from "@/components/shared/CreatePost";
 import Loading from "@/components/UI/Loading";
 import ChangeCoverPhoto from "@/components/user/ChangeCoverPhoto";
 import ChangeProfilePhoto from "@/components/user/ChangeProfilePhoto";
@@ -12,9 +13,13 @@ import Image from "next/image";
 
 const ProfilePage = () => {
   const { data: userData, isLoading, error } = useGetCurrentUser();
-  console.log(userData);
 
-  if (error) return <div>Error loading data</div>;
+  if (error)
+    return (
+      <div className="text-red-500 flex items-center justify-center min-h-screen">
+        Error loading data
+      </div>
+    );
 
   const data = userData?.data || {};
 
@@ -62,7 +67,11 @@ const ProfilePage = () => {
         <div className="max-w-screen-xl mx-auto p-4 my-3 flex flex-col lg:flex-row gap-4 justify-between">
           {/* User Info */}
           <UserInfo data={data} />
-          <h1>Posts</h1>
+
+          {/* posts */}
+          <div className="basis-3/5">
+            <CreatePost userData={data} />
+          </div>
         </div>
       </section>
     </>

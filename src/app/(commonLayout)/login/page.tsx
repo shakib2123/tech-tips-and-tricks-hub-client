@@ -22,10 +22,10 @@ const LoginPage = () => {
 
   const redirect = searchParams?.get("redirect");
 
-  const { mutate: handleuselogin, isPending, isSuccess } = useUserLogin();
+  const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogin();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    handleuselogin(data);
+    handleUserLogin(data);
     userLoading(true);
   };
 

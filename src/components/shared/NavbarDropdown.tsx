@@ -11,13 +11,18 @@ import { Avatar } from "@nextui-org/avatar";
 import { useUser } from "@/context/user.provider";
 import { logout } from "@/services/AuthService";
 import { protectedRoutes } from "@/constant/constant";
+import { useGetCurrentUser } from "@/hooks/user.hook";
 
 export default function NavbarDropdown() {
   const router = useRouter();
 
   const pathname = usePathname();
 
-  const { user, setIsLoading: userLoading } = useUser();
+  const { data: userData } = useGetCurrentUser();
+
+  const user = userData?.data || {};
+
+  const { setIsLoading: userLoading } = useUser();
 
   const handleLogout = () => {
     logout();
@@ -44,11 +49,8 @@ export default function NavbarDropdown() {
         <DropdownItem onClick={() => handleNavigation("/profile")}>
           Profile
         </DropdownItem>
-        <DropdownItem onClick={() => handleNavigation("/profile/settings")}>
-          Settings
-        </DropdownItem>
-        <DropdownItem onClick={() => handleNavigation("/profile/create-post")}>
-          Create Post
+        <DropdownItem onClick={() => handleNavigation("/user-dashboard")}>
+          Dashboard
         </DropdownItem>
         <DropdownItem
           onClick={() => handleLogout()}

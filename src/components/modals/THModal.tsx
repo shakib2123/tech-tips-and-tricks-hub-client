@@ -22,6 +22,7 @@ interface IProps {
     | "ghost"
     | undefined;
   buttonClassName?: string;
+  isDismissable?: boolean;
 }
 
 export default function THModal({
@@ -30,6 +31,7 @@ export default function THModal({
   children,
   buttonVariant = "solid",
   buttonClassName,
+  isDismissable = true,
 }: IProps) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -45,6 +47,7 @@ export default function THModal({
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        isDismissable={isDismissable}
         className="text-gray-900"
       >
         <ModalContent>

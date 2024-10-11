@@ -9,19 +9,20 @@ import {
 } from "react";
 
 import { getCurrentUser } from "../services/AuthService";
-import { IUser } from "@/types";
+
+type TDecodedUser = { _id: string; name: string; email: string; role: string };
 
 interface IUserProvidersValues {
-  user: IUser | null;
+  user: TDecodedUser | null;
   isLoading: boolean;
-  setUser: (user: IUser | null) => void;
+  setUser: (user: TDecodedUser | null) => void;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 const UserContext = createContext<IUserProvidersValues | undefined>(undefined);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<TDecodedUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const handleUser = async () => {
