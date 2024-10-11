@@ -62,6 +62,25 @@ export const getCurrentUser = async () => {
   return decodedToken;
 };
 
+export const changePassword = async (userData: FieldValues) => {
+  try {
+    const res = await axiosInstance.post("/auth/change-password", userData);
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to change password");
+  }
+};
+
+export const resetPassword = async (userData: FieldValues) => {
+  try {
+    const res = await axiosInstance.post("/auth/reset-password", userData);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to reset password");
+  }
+};
+
 export const getNewAccessToken = async () => {
   try {
     const refreshToken = cookies().get("refreshToken")?.value;

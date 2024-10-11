@@ -58,8 +58,14 @@ const LoginPage = () => {
               <div className="py-3 text-gray-900">
                 <THInput label="Email" name="email" type="email" />
               </div>
-              <div className="py-3 text-gray-900">
+              <div className="py-3 text-gray-900 flex flex-col gap-1">
                 <THInput label="Password" name="password" type="password" />
+                <Link
+                  href="/change-password"
+                  className="text-red-500 hover:underline text-sm"
+                >
+                  Forget Password?
+                </Link>
               </div>
 
               <Button

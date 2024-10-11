@@ -10,6 +10,7 @@ interface IProps {
   type?: string;
   label: string;
   name: string;
+  className?: string;
 }
 
 export default function THInput({
@@ -19,6 +20,7 @@ export default function THInput({
   type = "text",
   label,
   name,
+  className,
 }: IProps) {
   const {
     register,
@@ -35,6 +37,7 @@ export default function THInput({
       size={size}
       type={type}
       variant={variant}
+      className={className}
     />
   );
 }
