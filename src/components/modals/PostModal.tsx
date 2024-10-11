@@ -8,21 +8,46 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { Button, Checkbox, Select, SelectItem } from "@nextui-org/react";
+import {
+  Button,
+  Checkbox,
+  Select,
+  SelectItem,
+  Spinner,
+} from "@nextui-org/react";
 import { categories } from "@/constant/constant";
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
+import { uploadImagesToImgbb } from "@/services/ImageBBService";
+import { useCreatePost } from "@/hooks/post.hook";
 
 const PostModal = ({ userData }: { userData: IUser }) => {
   const [imageFiles, setImageFiles] = useState<File[] | null>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
-  console.log(imageFiles);
 
   const { handleSubmit, control } = useForm();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const { mutate: createPost, isPending } = useCreatePost();
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const imageUrls = await uploadImagesToImgbb(imageFiles!);
+      console.log("All uploaded image URLs:", imageUrls);
+
+      const postData = {
+        ...data,
+        isPremium: data.isPremium ? true : false,
+        userId: userData._id,
+        images: imageUrls,
+      };
+
+      console.log(postData);
+
+      createPost(postData);
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong");
+    }
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,14 +78,14 @@ const PostModal = ({ userData }: { userData: IUser }) => {
     >
       <div className="overflow-y-auto overflow-x-hidden">
         <THForm onSubmit={handleSubmit(onSubmit)}>
-          <RealTimeEditor />
+          <RealTimeEditor control={control} />
 
           <div className="flex flex-col gap-2 mt-2">
             <Controller
               name="isPremium"
               control={control}
               render={({ field }) => (
-                <Checkbox {...field}>
+                <Checkbox required {...field}>
                   <span className="text-gray-800">Premium</span>
                 </Checkbox>
               )}
@@ -75,6 +100,7 @@ const PostModal = ({ userData }: { userData: IUser }) => {
                   placeholder="Select a category"
                   className="max-w-full"
                   onChange={(e) => field.onChange(e)}
+                  required
                 >
                   {categories.map((category) => (
                     <SelectItem className="text-gray-700" key={category.key}>
@@ -117,6 +143,7 @@ const PostModal = ({ userData }: { userData: IUser }) => {
                   type="file"
                   className="hidden"
                   name="postImages"
+                  required
                 />
               </label>
             </div>
@@ -141,7 +168,7 @@ const PostModal = ({ userData }: { userData: IUser }) => {
           )}
 
           <Button className="w-full flex-1 mt-2" size="lg" type="submit">
-            Post now!
+            {isPending ? <Spinner size="sm" /> : "Post now"}
           </Button>
         </THForm>
       </div>

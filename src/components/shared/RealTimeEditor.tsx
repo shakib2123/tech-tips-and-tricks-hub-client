@@ -2,6 +2,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
 
 const RealTimeEditor = ({
+  control,
   name,
   defaultValue = "",
 }: {
@@ -12,6 +13,7 @@ const RealTimeEditor = ({
   return (
     <div className="w-full">
       <Controller
+        control={control}
         name={name || "description"}
         render={({ field: { onChange } }) => (
           <Editor
