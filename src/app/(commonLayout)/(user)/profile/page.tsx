@@ -56,8 +56,8 @@ const ProfilePage = () => {
                   {!data?.isVerified ? <GetVerifiedBadge /> : <VerifiedBadge />}
                 </div>
                 <p className="font-medium">
-                  <span>{data?.followers?.length} followers</span>
-                  <span>, {data?.following?.length} following</span>
+                  <span>{data?.followers | 0} followers</span>
+                  <span>, {data?.following | 0} following</span>
                 </p>
               </div>
             </div>

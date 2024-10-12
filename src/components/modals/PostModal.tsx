@@ -72,7 +72,7 @@ const PostModal = ({ userData }: { userData: IUser }) => {
   return (
     <THModal
       buttonClassName="flex-1 w-full"
-      buttonText="Post now!"
+      buttonText="Post now"
       title="Create a post"
       isDismissable={false}
     >

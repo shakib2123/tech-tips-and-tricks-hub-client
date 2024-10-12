@@ -18,3 +18,17 @@ export const updateUserInfo = async (
     throw new Error(error);
   }
 };
+
+export const createStripeUserVerification = async (
+  paymentInfo: Record<string, unknown>
+) => {
+  try {
+    const res = await axiosInstance.post(
+      `/users/verify/create-payment-checkout-session`,
+      paymentInfo
+    );
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
