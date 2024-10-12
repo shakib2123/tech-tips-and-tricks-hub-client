@@ -25,7 +25,6 @@ export interface IUser {
 
 export interface IPost {
   _id: string;
-
   description: string;
   category: string;
   images: string[];
@@ -34,7 +33,7 @@ export interface IPost {
   downvote: number;
   upvote: number;
   userEmail: string;
-  userId: string;
+  userId: string | IUser;
   updatedAt: string;
   createdAt: string;
   __v: number;

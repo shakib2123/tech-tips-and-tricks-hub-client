@@ -19,7 +19,7 @@ interface IProps {
 export default function ImageGallery({ images }: IProps) {
   return (
     <LightGallery
-      elementClassNames={` mt-2 gap-2 grid place-items-center
+      elementClassNames={` mt-2 gap-1 grid place-items-center
          ${images?.length === 1 ? "grid-cols-1" : "grid-cols-2"} `}
       speed={500}
       plugins={[lgThumbnail, lgZoom]}

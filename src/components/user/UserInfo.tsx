@@ -6,7 +6,7 @@ import { UserInfoUpdateModal } from "../modals/UserModal";
 import Link from "next/link";
 const UserInfo = ({ data }: { data: IUser }) => {
   return (
-    <div className="basis-2/5 p-4 bg-slate-200 rounded-lg">
+    <div className="basis-2/5 p-4 bg-slate-200 rounded-lg h-fit sticky">
       <h2 className="text-xl font-bold">Intro</h2>
       {/* bio */}
       <div className="flex flex-col gap-2 my-4">

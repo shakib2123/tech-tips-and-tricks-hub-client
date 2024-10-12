@@ -1,28 +1,20 @@
 "use client";
 
 import { VerifiedBadge } from "@/assets/icons";
+import MyPosts from "@/components/page/profile/Post/MyPosts";
+import PostCard from "@/components/page/profile/Post/PostCard";
 import CreatePost from "@/components/shared/CreatePost";
 import Loading from "@/components/UI/Loading";
 import ChangeCoverPhoto from "@/components/user/ChangeCoverPhoto";
 import ChangeProfilePhoto from "@/components/user/ChangeProfilePhoto";
 import GetVerifiedBadge from "@/components/user/GetVerifiedBadge";
 import UserInfo from "@/components/user/UserInfo";
-import { useGetMyAllPosts } from "@/hooks/post.hook";
 import { useGetCurrentUser } from "@/hooks/user.hook";
-
 import Image from "next/image";
 
 const ProfilePage = () => {
-  const { data: userData, isLoading, error } = useGetCurrentUser();
+  const { data: userData, isPending, error, isSuccess } = useGetCurrentUser();
   const data = userData?.data || {};
-
-  const {
-    data: posts,
-    isLoading: postsLoading,
-    error: postsError,
-  } = useGetMyAllPosts(data?.email);
-
-  console.log(posts, "posts");
 
   if (error)
     return (
@@ -33,7 +25,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      {isLoading && <Loading />}
+      {isPending && <Loading />}
       <section className=" text-gray-900">
         <div className="bg-slate-200">
           <div className="max-w-screen-xl mx-auto">
@@ -68,8 +60,8 @@ const ProfilePage = () => {
                   )}
                 </div>
                 <p className="font-medium">
-                  <span>{data?.followers | 0} followers</span>
-                  <span>, {data?.following | 0} following</span>
+                  <span>{data?.followers?.length | 0} followers</span>
+                  <span>, {data?.following?.length | 0} following</span>
                 </p>
               </div>
             </div>
@@ -83,8 +75,7 @@ const ProfilePage = () => {
           {/* posts */}
           <div className="basis-3/5">
             <CreatePost userData={data} />
-
-            <div className="w-full mt-4"></div>
+            {isSuccess && <MyPosts email={data?.email} />}
           </div>
         </div>
       </section>
