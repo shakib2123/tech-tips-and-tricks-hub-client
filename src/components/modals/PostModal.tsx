@@ -33,12 +33,11 @@ const PostModal = ({ userData }: { userData: IUser }) => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const imageUrls = await uploadImagesToImgbb(imageFiles!);
-      console.log("All uploaded image URLs:", imageUrls);
-
       const postData = {
         ...data,
         isPremium: data.isPremium ? true : false,
         userId: userData._id,
+        userEmail: userData.email,
         images: imageUrls,
       };
 

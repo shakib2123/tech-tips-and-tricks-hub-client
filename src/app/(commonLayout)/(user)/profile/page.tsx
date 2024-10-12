@@ -7,12 +7,22 @@ import ChangeCoverPhoto from "@/components/user/ChangeCoverPhoto";
 import ChangeProfilePhoto from "@/components/user/ChangeProfilePhoto";
 import GetVerifiedBadge from "@/components/user/GetVerifiedBadge";
 import UserInfo from "@/components/user/UserInfo";
+import { useGetMyAllPosts } from "@/hooks/post.hook";
 import { useGetCurrentUser } from "@/hooks/user.hook";
 
 import Image from "next/image";
 
 const ProfilePage = () => {
   const { data: userData, isLoading, error } = useGetCurrentUser();
+  const data = userData?.data || {};
+
+  const {
+    data: posts,
+    isLoading: postsLoading,
+    error: postsError,
+  } = useGetMyAllPosts(data?.email);
+
+  console.log(posts, "posts");
 
   if (error)
     return (
@@ -20,8 +30,6 @@ const ProfilePage = () => {
         Error loading data
       </div>
     );
-
-  const data = userData?.data || {};
 
   return (
     <>
@@ -75,6 +83,8 @@ const ProfilePage = () => {
           {/* posts */}
           <div className="basis-3/5">
             <CreatePost userData={data} />
+
+            <div className="w-full mt-4"></div>
           </div>
         </div>
       </section>

@@ -23,6 +23,23 @@ export interface IUser {
   __v?: number;
 }
 
+export interface IPost {
+  _id: string;
+
+  description: string;
+  category: string;
+  images: string[];
+  isDeleted: boolean;
+  isPremium: boolean;
+  downvote: number;
+  upvote: number;
+  userEmail: string;
+  userId: string;
+  updatedAt: string;
+  createdAt: string;
+  __v: number;
+}
+
 export interface IInput {
   variant?: "flat" | "bordered" | "faded" | "underlined";
   size?: "sm" | "md" | "lg";
