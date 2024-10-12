@@ -4,11 +4,7 @@ import PostCard from "./PostCard";
 import { IPost } from "@/types";
 
 const MyPosts = ({ email }: { email: string }) => {
-  const {
-    data: posts,
-    isLoading: postsLoading,
-    error: postsError,
-  } = useGetMyAllPosts(email);
+  const { data: posts, isLoading: postsLoading } = useGetMyAllPosts(email);
 
   return (
     <div>

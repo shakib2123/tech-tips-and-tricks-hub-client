@@ -32,9 +32,7 @@ const FollowAction = ({ userData }: { userData: IUser }) => {
   const isFollowing = userData?.following?.includes(followerId as string);
 
   return (
-    <div
-    //   className={followingId === user?._id ? "hidden" : "block"}
-    >
+    <div className={userData?._id === user?._id ? "hidden" : "block"}>
       {!isFollowing ? (
         <Button onClick={handleFollow} color="primary" size="sm">
           {isPending ? <Spinner size="sm" color="white" /> : "Follow"}
