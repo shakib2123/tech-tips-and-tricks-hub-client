@@ -24,7 +24,7 @@ export const createStripeUserVerification = async (
 ) => {
   try {
     const res = await axiosInstance.post(
-      `/users/verify/create-payment-checkout-session`,
+      `/payments/create-payment-checkout-session`,
       paymentInfo
     );
     return res.data;

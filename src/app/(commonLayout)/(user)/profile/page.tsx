@@ -53,7 +53,11 @@ const ProfilePage = () => {
               <div className="text-center lg:text-left">
                 <div className="flex items-center gap-2">
                   <h1 className="text-[32px] font-bold">{data?.name}</h1>
-                  {!data?.isVerified ? <GetVerifiedBadge /> : <VerifiedBadge />}
+                  {!data?.isVerified ? (
+                    <GetVerifiedBadge user={data} />
+                  ) : (
+                    <VerifiedBadge />
+                  )}
                 </div>
                 <p className="font-medium">
                   <span>{data?.followers | 0} followers</span>
