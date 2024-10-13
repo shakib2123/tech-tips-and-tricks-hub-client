@@ -49,7 +49,9 @@ const CommentAction = ({ postId }: { postId: string }) => {
         </div>
       ) : (
         <div className="w-full mt-4 flex gap-2 relative">
-          <ProfilePicture src={userData?.data?.profilePhoto} />
+          <div className="flex-1">
+            <ProfilePicture src={userData?.data?.profilePhoto} />
+          </div>
           <Textarea
             onChange={(e) => setComment(e.target.value)}
             variant="faded"

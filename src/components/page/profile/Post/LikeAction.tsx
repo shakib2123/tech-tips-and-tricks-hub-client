@@ -7,7 +7,7 @@ import { BiLike, BiDislike } from "react-icons/bi";
 const LikeAction = ({ post }: { post: IPost }) => {
   const [isUpvoteLoading, setIsUpvoteLoading] = useState(false);
   const [isDownvoteLoading, setIsDownvoteLoading] = useState(false);
-  const { mutate: updateVote, isPending, isSuccess } = useVoteUpdate();
+  const { mutate: updateVote, isPending } = useVoteUpdate();
   console.log(post);
 
   useEffect(() => {

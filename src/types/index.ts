@@ -39,6 +39,16 @@ export interface IPost {
   __v: number;
 }
 
+export interface IComment {
+  _id: string;
+  userId: string | IUser;
+  postId: string | IPost;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 export interface IInput {
   variant?: "flat" | "bordered" | "faded" | "underlined";
   size?: "sm" | "md" | "lg";

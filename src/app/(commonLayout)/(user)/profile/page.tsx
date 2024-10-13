@@ -2,7 +2,6 @@
 
 import { VerifiedBadge } from "@/assets/icons";
 import MyPosts from "@/components/page/profile/Post/MyPosts";
-import PostCard from "@/components/page/profile/Post/PostCard";
 import CreatePost from "@/components/shared/CreatePost";
 import Loading from "@/components/UI/Loading";
 import ChangeCoverPhoto from "@/components/user/ChangeCoverPhoto";

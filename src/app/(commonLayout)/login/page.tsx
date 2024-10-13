@@ -37,7 +37,7 @@ const LoginPage = () => {
         router.push("/");
       }
     }
-  }, [isPending, isSuccess]);
+  }, [isPending, isSuccess, redirect, router]);
 
   const registerURL = redirect ? `/register?redirect=${redirect}` : "/register";
 

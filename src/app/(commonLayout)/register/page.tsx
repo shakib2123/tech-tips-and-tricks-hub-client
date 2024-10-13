@@ -48,7 +48,7 @@ export default function RegisterPage() {
         router.push("/");
       }
     }
-  }, [isPending, isSuccess]);
+  }, [isPending, isSuccess, redirect, router]);
 
   const loginURL = redirect ? `/login?redirect=${redirect}` : "/login";
 
