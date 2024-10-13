@@ -10,6 +10,10 @@ export const getPost = async (postId: string) => {
   const res = await axiosInstance.get(`/posts/${postId}`);
   return res.data;
 };
+export const getAllPosts = async (query: string) => {
+  const res = await axiosInstance.get(`/posts${query}`);
+  return res.data;
+};
 
 export const updateVote = async (voteData: Record<string, unknown>) => {
   const res = await axiosInstance.put(`/posts/vote-update`, voteData);

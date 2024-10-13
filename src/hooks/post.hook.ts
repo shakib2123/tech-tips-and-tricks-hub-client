@@ -1,5 +1,6 @@
 import {
   createPostIntoDB,
+  getAllPosts,
   getMyAllPost,
   getPost,
   updateVote,
@@ -14,7 +15,7 @@ export const useCreatePost = () => {
     mutationKey: ["CREATE_POST"],
     mutationFn: async (userData) => await createPostIntoDB(userData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["MY_POSTS"] });
+      queryClient.invalidateQueries({ queryKey: ["MY_POSTS", "ALL_POSTS"] });
       toast.success("Post created successfully");
     },
     onError: (error) => {
@@ -40,6 +41,13 @@ export const useGetMyAllPosts = (email: string) => {
   return useQuery({
     queryKey: ["MY_POSTS"],
     queryFn: async () => await getMyAllPost(email),
+  });
+};
+
+export const useGetAllPosts = (query: string) => {
+  return useQuery({
+    queryKey: ["ALL_POSTS"],
+    queryFn: async () => await getAllPosts(query),
   });
 };
 export const useGetPost = (userId: string) => {

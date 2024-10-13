@@ -10,7 +10,7 @@ const PostCard = ({ post }: { post: IPost }) => {
   const { images, description, userId: user, createdAt, isPremium } = post;
 
   return (
-    <div className="max-w-3xl bg-slate-300 rounded-xl py-4">
+    <div className="w-full lg:w-[900px] bg-slate-300 rounded-xl py-4">
       <div className=" px-4">
         <div className="mb-4 flex gap-2">
           <ProfilePicture src={user?.profilePhoto} />
