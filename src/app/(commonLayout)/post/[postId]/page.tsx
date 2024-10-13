@@ -82,7 +82,7 @@ const PostDetails = ({
               <LikeAction post={post?.data} />
               <SharePost shareData={shareData} />
             </div>
-            <CommentAction />
+            <CommentAction postId={postId} />
           </div>
         </section>
       )}

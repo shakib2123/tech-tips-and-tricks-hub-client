@@ -44,7 +44,7 @@ const SharePost = ({ shareData }: PostProps): JSX.Element => {
               <div className="flex gap-3 items-center">
                 <FacebookShareButton
                   url={shareData?.url}
-                  quote={shareData?.description}
+                  title={shareData?.description}
                 >
                   <FacebookIcon size={32} round />
                 </FacebookShareButton>
