@@ -23,6 +23,15 @@ export interface IUser {
   __v?: number;
 }
 
+export type UserReference =
+  | IUser
+  | {
+      _id: string;
+      profilePhoto: string;
+      name: string;
+      isVerified: boolean;
+    };
+
 export interface IPost {
   _id: string;
   description: string;
@@ -30,10 +39,10 @@ export interface IPost {
   images: string[];
   isDeleted: boolean;
   isPremium: boolean;
-  downvote: number;
-  upvote: number;
+  downvote: string[];
+  upvote: string[];
   userEmail: string;
-  userId: string | IUser;
+  userId: IUser;
   updatedAt: string;
   createdAt: string;
   __v: number;
@@ -41,7 +50,7 @@ export interface IPost {
 
 export interface IComment {
   _id: string;
-  userId: string | IUser;
+  userId: UserReference; // Updated type with the required properties
   postId: string | IPost;
   comment: string;
   createdAt: string;

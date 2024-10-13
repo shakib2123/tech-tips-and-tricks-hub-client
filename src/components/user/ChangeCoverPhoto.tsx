@@ -27,7 +27,6 @@ const ChangeCoverPhoto = () => {
       const response = await axios.post(url, formData);
 
       const imgData = await response.data.data.url;
-      console.log("imageData", imgData);
 
       const updatedData = {
         coverPhoto: imgData,

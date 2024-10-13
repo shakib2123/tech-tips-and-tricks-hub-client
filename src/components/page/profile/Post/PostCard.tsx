@@ -7,9 +7,7 @@ import { Button } from "@nextui-org/react";
 import Link from "next/link";
 
 const PostCard = ({ post }: { post: IPost }) => {
-  console.log(post);
   const { images, description, userId: user, createdAt, isPremium } = post;
-  console.log(user);
 
   return (
     <div className="max-w-3xl bg-slate-300 rounded-xl py-4">

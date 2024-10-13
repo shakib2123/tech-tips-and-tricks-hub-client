@@ -17,7 +17,6 @@ export const UserInfoUpdateModal = ({ userData }: { userData: IUser }) => {
       website: data.website,
       mobileNumber: data.mobileNumber,
     };
-    console.log(updatedData);
 
     handleUpdateUserInfo({ email: userData.email, updatedData });
   };

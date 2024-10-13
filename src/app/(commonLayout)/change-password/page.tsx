@@ -11,8 +11,6 @@ const ChangePasswordPage = () => {
   const { mutate: changePassword, isPending, isSuccess } = useChangePassword();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-
     changePassword(data);
   };
 

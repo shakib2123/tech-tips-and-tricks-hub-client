@@ -7,11 +7,12 @@ import { useUser } from "@/context/user.provider";
 import { useUserLogin } from "@/hooks/auth.hook";
 import loginValidationSchema from "@/schemas/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import dynamic from "next/dynamic";
 
 const LoginPage = () => {
   const searchParams = useSearchParams();
@@ -42,7 +43,13 @@ const LoginPage = () => {
   const registerURL = redirect ? `/register?redirect=${redirect}` : "/register";
 
   return (
-    <>
+    <Suspense
+      fallback={
+        <div>
+          <Spinner size="lg" />
+        </div>
+      }
+    >
       {isPending && <Loading />}
       <section className="min-h-[calc(100vh-200px)] h-full overflow-y-auto flex items-center justify-center py-8 bg-white">
         <div className="flex w-full flex-col items-center justify-center text-gray-900">
@@ -85,8 +92,8 @@ const LoginPage = () => {
           </div>
         </div>
       </section>
-    </>
+    </Suspense>
   );
 };
 
-export default LoginPage;
+export default dynamic(() => Promise.resolve(LoginPage), { ssr: false });

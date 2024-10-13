@@ -9,11 +9,13 @@ import THInput from "@/components/form/THInput";
 import registerValidationSchema from "@/schemas/register.schema";
 import { useUserRegistration } from "@/hooks/auth.hook";
 import Loading from "@/components/UI/Loading";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/context/user.provider";
+import { Spinner } from "@nextui-org/react";
+import dynamic from "next/dynamic";
 
-export default function RegisterPage() {
+function RegisterPage() {
   const searchParams = useSearchParams();
 
   const router = useRouter();
@@ -53,7 +55,13 @@ export default function RegisterPage() {
   const loginURL = redirect ? `/login?redirect=${redirect}` : "/login";
 
   return (
-    <>
+    <Suspense
+      fallback={
+        <div>
+          <Spinner size="lg" />
+        </div>
+      }
+    >
       {isPending && <Loading />}
       <section className="min-h-[calc(100vh-200px)] h-full overflow-y-auto flex items-center justify-center py-8 bg-white">
         <div className="flex w-full flex-col items-center justify-center text-gray-900">
@@ -108,6 +116,8 @@ export default function RegisterPage() {
           </div>
         </div>
       </section>
-    </>
+    </Suspense>
   );
 }
+
+export default dynamic(() => Promise.resolve(RegisterPage), { ssr: false });

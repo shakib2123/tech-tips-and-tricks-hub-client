@@ -12,8 +12,8 @@ export const uploadImagesToImgbb = async (images: File[]) => {
     try {
       const response = await axios.post(imgbbUploadURL, formData);
       return response.data.data.url;
-    } catch (error) {
-      throw new Error(error.message || "Something went wrong");
+    } catch (error: any) {
+      throw new Error(error?.message || "Something went wrong");
     }
   });
 
@@ -21,7 +21,7 @@ export const uploadImagesToImgbb = async (images: File[]) => {
     const imageUrls = await Promise.all(promises);
 
     return imageUrls;
-  } catch (error) {
-    throw new Error(error.message || "Something went wrong");
+  } catch (error: any) {
+    throw new Error(error?.message || "Something went wrong");
   }
 };

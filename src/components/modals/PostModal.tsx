@@ -41,8 +41,6 @@ const PostModal = ({ userData }: { userData: IUser }) => {
         images: imageUrls,
       };
 
-      console.log(postData);
-
       createPost(postData);
     } catch (error: any) {
       toast.error(error.message || "Something went wrong");
@@ -56,7 +54,7 @@ const PostModal = ({ userData }: { userData: IUser }) => {
       return toast.message("You can only upload a maximum of 4 images");
     }
 
-    setImageFiles((prev) => [...prev, file]);
+    setImageFiles((prev) => [...(prev ?? []), file]);
 
     if (file) {
       const reader = new FileReader();

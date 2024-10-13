@@ -8,7 +8,6 @@ const LikeAction = ({ post }: { post: IPost }) => {
   const [isUpvoteLoading, setIsUpvoteLoading] = useState(false);
   const [isDownvoteLoading, setIsDownvoteLoading] = useState(false);
   const { mutate: updateVote, isPending } = useVoteUpdate();
-  console.log(post);
 
   useEffect(() => {
     if (!isPending) {

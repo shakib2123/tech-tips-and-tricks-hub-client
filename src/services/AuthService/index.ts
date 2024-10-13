@@ -63,7 +63,7 @@ export const changePassword = async (userData: FieldValues) => {
   try {
     const res = await axiosInstance.post("/auth/change-password", userData);
     return res.data;
-  } catch (error) {
+  } catch {
     throw new Error("Failed to change password");
   }
 };
@@ -72,8 +72,7 @@ export const resetPassword = async (userData: FieldValues) => {
   try {
     const res = await axiosInstance.post("/auth/reset-password", userData);
     return res.data;
-  } catch (error) {
-    console.log(error);
+  } catch {
     throw new Error("Failed to reset password");
   }
 };
@@ -92,7 +91,7 @@ export const getNewAccessToken = async () => {
     });
 
     return res.data;
-  } catch (error) {
+  } catch {
     throw new Error("Failed to get new access token");
   }
 };

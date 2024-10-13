@@ -22,7 +22,6 @@ const CommentAction = ({ postId }: { postId: string }) => {
       comment,
     };
     if (comment) {
-      console.log(commentData);
       createComment(commentData);
     } else {
       return;
