@@ -22,7 +22,7 @@ const PostDetails = ({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setCurrentUrl(window.location.href); // Full URL including the domain
+      setCurrentUrl(window.location.href);
     }
   }, [pathname]);
 
@@ -43,7 +43,7 @@ const PostDetails = ({
       {isPending ? (
         <Loading />
       ) : (
-        <section className="min-h-screen w-full text-gray-900 flex justify-center px-2 lg:px-0">
+        <section className="min-h-screen w-full md:min-w-[700px] lg:min-w-[900px] text-gray-900 flex justify-center px-2 lg:px-0 mx-auto">
           <div className="max-w-screen-xl mx-auto h-fit  rounded-lg bg-slate-300 my-6 py-4">
             <div className="w-full">
               <div className="px-4">

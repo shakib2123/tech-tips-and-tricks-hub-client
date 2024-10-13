@@ -6,7 +6,7 @@ import useDebounce from "@/hooks/debounce.hook";
 import { useGetAllPosts } from "@/hooks/post.hook";
 import { IPost } from "@/types";
 import { Input, Select, SelectItem, Spinner } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const sortingFields = [
   { key: "", label: "Default" },
@@ -20,9 +20,6 @@ export default function NewsFeed() {
   const [sortValue, setSortValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("");
-  const [posts, setPosts] = useState<IPost[]>([]);
-  const [page, setPage] = useState(1);
-
   const debouncedSearchValue = useDebounce(searchValue);
 
   const buildQuery = () => {
@@ -32,59 +29,10 @@ export default function NewsFeed() {
       queryParams.push(`searchValue=${debouncedSearchValue}`);
     if (sortValue) queryParams.push(`sortValue=${sortValue}`);
     if (filterValue) queryParams.push(`filterValue=${filterValue}`);
-
-    queryParams.push(`page=${page}`);
-
     return queryParams.length ? `?${queryParams.join("&")}` : "";
   };
 
-  const {
-    data: newPosts,
-    isPending,
-    isSuccess,
-    refetch,
-  } = useGetAllPosts(buildQuery());
-
-  useEffect(() => {
-    refetch();
-  }, [sortValue, debouncedSearchValue, filterValue]);
-
-  useEffect(() => {
-    if (
-      isSuccess &&
-      newPosts &&
-      !searchValue &&
-      !filterValue &&
-      !sortValue &&
-      !debouncedSearchValue
-    ) {
-      setPosts((prevPosts) => [...prevPosts, ...(newPosts?.data ?? [])]);
-    } else if (
-      (isSuccess && newPosts) ||
-      searchValue ||
-      filterValue ||
-      sortValue ||
-      debouncedSearchValue
-    ) {
-      setPosts(newPosts?.data ?? []);
-    }
-  }, [isSuccess, newPosts]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop >=
-          document.documentElement.offsetHeight - 1000 &&
-        !isPending
-      ) {
-        setPage((prevPage) => prevPage + 1);
-        refetch();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isPending, refetch]);
+  const { data: newPosts, isPending } = useGetAllPosts(buildQuery());
 
   return (
     <section className="mt-8 max-w-screen-xl mx-auto px-3 text-gray-900">
@@ -148,12 +96,14 @@ export default function NewsFeed() {
         </div>
       ) : (
         <div className="w-full flex flex-col gap-4 items-center my-8">
-          {posts?.length === 0 ? (
+          {newPosts?.data?.length === 0 ? (
             <div className="min-h-[calc(100vh-300px)] flex items-center justify-center ">
               <p className="text-center text-lg">No post found</p>
             </div>
           ) : (
-            posts?.map((post: IPost) => <PostCard key={post._id} post={post} />)
+            newPosts?.data?.map((post: IPost) => (
+              <PostCard key={post._id} post={post} />
+            ))
           )}
         </div>
       )}
