@@ -23,8 +23,6 @@ export default function NewsFeed() {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [page, setPage] = useState(1);
 
-  console.log(posts);
-
   const debouncedSearchValue = useDebounce(searchValue);
 
   const buildQuery = () => {
@@ -47,8 +45,6 @@ export default function NewsFeed() {
     refetch,
   } = useGetAllPosts(buildQuery());
 
-  console.log(newPosts);
-
   useEffect(() => {
     refetch();
   }, [sortValue, debouncedSearchValue, filterValue]);
@@ -63,7 +59,13 @@ export default function NewsFeed() {
       !debouncedSearchValue
     ) {
       setPosts((prevPosts) => [...prevPosts, ...(newPosts?.data ?? [])]);
-    } else {
+    } else if (
+      (isSuccess && newPosts) ||
+      searchValue ||
+      filterValue ||
+      sortValue ||
+      debouncedSearchValue
+    ) {
       setPosts(newPosts?.data ?? []);
     }
   }, [isSuccess, newPosts]);
@@ -72,7 +74,7 @@ export default function NewsFeed() {
     const handleScroll = () => {
       if (
         window.innerHeight + document.documentElement.scrollTop >=
-          document.documentElement.offsetHeight - 500 &&
+          document.documentElement.offsetHeight - 1000 &&
         !isPending
       ) {
         setPage((prevPage) => prevPage + 1);
