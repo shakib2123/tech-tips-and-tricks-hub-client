@@ -15,8 +15,6 @@ const roleBasedRoutes = {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  console.log(pathname);
-
   const user = await getCurrentUser();
 
   if (!user) {

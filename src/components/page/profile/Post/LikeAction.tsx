@@ -39,7 +39,7 @@ const LikeAction = ({ post }: { post: IPost }) => {
 
   return (
     <div>
-      <Button onClick={handleUpvote} variant="ghost" className="p-2">
+      <Button onClick={handleUpvote} variant="ghost" className="p-2 mr-4">
         {isUpvoteLoading ? (
           <Spinner size="sm" color="white" />
         ) : (

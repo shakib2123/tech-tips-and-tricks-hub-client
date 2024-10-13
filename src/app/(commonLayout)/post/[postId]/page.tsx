@@ -3,19 +3,40 @@ import CommentAction from "@/components/page/profile/Post/CommentAction";
 import FollowAction from "@/components/page/profile/Post/FollowAction";
 import ImageGallery from "@/components/page/profile/Post/ImageGallery";
 import LikeAction from "@/components/page/profile/Post/LikeAction";
+import SharePost from "@/components/page/profile/Post/SharePost";
 import Loading from "@/components/UI/Loading";
 import ProfilePicture from "@/components/UI/ProfilePicture";
 import { useGetPost } from "@/hooks/post.hook";
+import htmlToPlainText from "@/utils/htmlToPlainText";
 import { formatDistanceToNow } from "date-fns";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const PostDetails = ({
   params: { postId },
 }: {
   params: { postId: string };
 }) => {
-  const { data: post, isPending, isSuccess } = useGetPost(postId);
+  const pathname = usePathname();
+  const [currentUrl, setCurrentUrl] = useState("");
 
-  const user = post?.data?.userId; // Ensure you're using the correct user data
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href); // Full URL including the domain
+    }
+  }, [pathname]);
+
+  const { data: post, isPending } = useGetPost(postId);
+  const user = post?.data?.userId;
+
+  const htmlContent = post?.data?.description;
+  const convertedDescription = htmlToPlainText(htmlContent);
+
+  const shareData = {
+    title: "Tech Tips & Tricks Hub",
+    description: convertedDescription,
+    url: currentUrl,
+  };
 
   return (
     <>
@@ -57,10 +78,11 @@ const PostDetails = ({
               </div>
               <ImageGallery images={post?.data?.images} />
             </div>
-            <div className="flex items-center py-4 border-t px-4">
+            <div className="flex gap-4 items-center py-4 border-t px-4">
               <LikeAction post={post?.data} />
-              <CommentAction />
+              <SharePost shareData={shareData} />
             </div>
+            <CommentAction />
           </div>
         </section>
       )}
