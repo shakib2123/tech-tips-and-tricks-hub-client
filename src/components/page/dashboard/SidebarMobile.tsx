@@ -24,7 +24,7 @@ const SidebarMobile = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { data: userData, isPending } = useGetCurrentUser();
+  const { data: userData } = useGetCurrentUser();
   const { setIsLoading: userLoading } = useUser();
 
   const handleLogout = () => {

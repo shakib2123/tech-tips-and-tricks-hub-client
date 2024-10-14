@@ -13,12 +13,12 @@ import { logout } from "@/services/AuthService";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { IoLockClosed } from "react-icons/io5";
-import SidebarMobile from "./SidebarMobile";
+
 const Sidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { data: userData, isPending } = useGetCurrentUser();
+  const { data: userData } = useGetCurrentUser();
   const { setIsLoading: userLoading } = useUser();
 
   const handleLogout = () => {
@@ -32,8 +32,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <SidebarMobile />
-      <section className="bg-slate-200 w-72 h-screen fixed top-0 p-4 lg:flex flex-col justify-between hidden">
+      <section className="bg-slate-200 min-w-72 h-full min-h-screen fixed left-0 top-0 p-4 lg:flex flex-col justify-between hidden">
         <div>
           {/* logo */}
           <div className="border-b border-gray-500 pb-2">
@@ -46,37 +45,34 @@ const Sidebar = () => {
           </div>
 
           {/* routes */}
-          <div className="py-4 space-y-2">
+          <div className="py-4 flex flex-col gap-2">
             {userData?.data?.role === "USER"
               ? userDashboardRoutes?.map((route) => (
-                  <div
-                    key={route.path}
-                    className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
-                      pathname === route.path
-                        ? "bg-primary-100 text-primary"
-                        : "hover:bg-slate-100 hover:text-primary-500"
-                    }`}
-                  >
-                    {route.icon}{" "}
-                    <Link href={route.path} className="w-full h-full">
-                      {route.name}
-                    </Link>
-                  </div>
+                  <Link key={route.path} href={route.path}>
+                    <div
+                      className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
+                        pathname === route.path
+                          ? "bg-primary-100 text-primary"
+                          : "hover:bg-slate-100 hover:text-primary-500"
+                      }`}
+                    >
+                      {route.icon} {route.name}
+                    </div>
+                  </Link>
                 ))
               : adminDashboardRoutes?.map((route) => (
-                  <div
-                    key={route.path}
-                    className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
-                      pathname === route.path
-                        ? "bg-primary-100 text-primary"
-                        : "hover:bg-slate-100 hover:text-primary-500"
-                    }`}
-                  >
-                    {route.icon}{" "}
-                    <Link href={route.path} className="w-full h-full">
-                      {route.name}
-                    </Link>
-                  </div>
+                  <Link key={route.path} href={route.path}>
+                    <div
+                      key={route.path}
+                      className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
+                        pathname === route.path
+                          ? "bg-primary-100 text-primary"
+                          : "hover:bg-slate-100 hover:text-primary-500"
+                      }`}
+                    >
+                      {route.icon} {route.name}
+                    </div>
+                  </Link>
                 ))}
           </div>
         </div>

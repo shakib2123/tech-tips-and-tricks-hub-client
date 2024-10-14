@@ -1,4 +1,5 @@
 import Sidebar from "@/components/page/dashboard/Sidebar";
+import SidebarMobile from "@/components/page/dashboard/SidebarMobile";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,8 +14,10 @@ const UserLayout = ({
 }>) => {
   return (
     <section className="bg-white text-gray-900">
+      <SidebarMobile />
+
       <Sidebar />
-      {children}
+      <div className="lg:ml-[290px]">{children}</div>
     </section>
   );
 };
