@@ -5,8 +5,11 @@ import { formatDistanceToNow } from "date-fns";
 import FollowAction from "./FollowAction";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
+import { useUser } from "@/context/user.provider";
 
 const PostCard = ({ post }: { post: IPost }) => {
+  const { user: localUser } = useUser();
+
   const { images, description, userId: user, createdAt, isPremium } = post;
 
   return (
@@ -17,7 +20,7 @@ const PostCard = ({ post }: { post: IPost }) => {
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-lg font-bold">{user?.name}</h3>
-              <FollowAction userData={user} />
+              {localUser?.email && <FollowAction userData={user} />}
               <div
                 className={`text-xs ${
                   isPremium

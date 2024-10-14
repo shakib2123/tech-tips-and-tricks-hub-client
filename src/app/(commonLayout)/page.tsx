@@ -2,6 +2,7 @@
 import CreatePostInNewsFeed from "@/components/page/NewsFeed/CreatePostInNewsFeed";
 import PostCard from "@/components/page/profile/Post/PostCard";
 import { categories } from "@/constant/constant";
+import { useUser } from "@/context/user.provider";
 import useDebounce from "@/hooks/debounce.hook";
 import { useGetAllPosts } from "@/hooks/post.hook";
 import { IPost } from "@/types";
@@ -17,6 +18,8 @@ const sortingFields = [
 ];
 
 export default function NewsFeed() {
+  const { user } = useUser();
+
   const [sortValue, setSortValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("");
@@ -85,7 +88,11 @@ export default function NewsFeed() {
             ))}
           </Select>
         </div>
-        <div className="lg:basis-4/12 w-full">
+        <div
+          className={`lg:basis-4/12 w-full ${
+            !user?.email ? "hidden" : "block"
+          }`}
+        >
           <CreatePostInNewsFeed />
         </div>
       </div>

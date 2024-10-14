@@ -12,6 +12,16 @@ export const getCommentsFromDB = async () => {
   const res = await axiosInstance.get(`/comments`);
   return res.data;
 };
+
+export const updateCommentIntoDB = async (
+  commentData: Record<string, string>
+) => {
+  const res = await axiosInstance.put(`/comments/${commentData.id}`, {
+    comment: commentData.comment,
+  });
+  return res.data;
+};
+
 export const deleteCommentsFromDB = async (id: string) => {
   const res = await axiosInstance.delete(`/comments/${id}`);
   return res.data;

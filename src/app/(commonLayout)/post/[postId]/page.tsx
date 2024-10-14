@@ -29,6 +29,8 @@ const PostDetails = ({
   const { data: post, isPending } = useGetPost(postId);
   const user = post?.data?.userId;
 
+  console.log(post);
+
   const htmlContent = post?.data?.description;
   const convertedDescription = htmlToPlainText(htmlContent);
 

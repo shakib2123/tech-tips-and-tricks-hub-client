@@ -2,6 +2,7 @@ import {
   createCommentIntoDB,
   deleteCommentsFromDB,
   getCommentsFromDB,
+  updateCommentIntoDB,
 } from "@/services/CommentService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
@@ -28,6 +29,20 @@ export const useGetComments = () => {
   });
 };
 
+export const useUpdateComment = () => {
+  const queryClient = useQueryClient();
+  return useMutation<any, Error, Record<string, string>>({
+    mutationKey: ["UPDATE_COMMENT"],
+    mutationFn: async (commentData) => await updateCommentIntoDB(commentData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["GET_COMMENTS"] });
+      toast.success("Comment updated successfully");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
 export const useDeleteComment = () => {
   const queryClient = useQueryClient();
   return useMutation<any, Error, string>({
