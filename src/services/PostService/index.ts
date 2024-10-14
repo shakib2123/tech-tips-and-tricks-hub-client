@@ -31,3 +31,7 @@ export const updatePostIntoDB = async (updateData: Record<string, unknown>) => {
   );
   return res.data;
 };
+export const deletePost = async (postId: string) => {
+  const res = await axiosInstance.delete(`/posts/${postId}`);
+  return res.data;
+};

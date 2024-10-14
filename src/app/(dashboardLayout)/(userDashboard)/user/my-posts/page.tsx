@@ -4,7 +4,7 @@ import CreatePost from "@/components/shared/CreatePost";
 import { categories } from "@/constant/constant";
 import { useUser } from "@/context/user.provider";
 import useDebounce from "@/hooks/debounce.hook";
-import { useGetAllPosts } from "@/hooks/post.hook";
+import { useDeletePost, useGetAllPosts } from "@/hooks/post.hook";
 import { useGetCurrentUser } from "@/hooks/user.hook";
 import { IPost } from "@/types";
 import {
@@ -82,10 +82,17 @@ const MyPosts = () => {
   const { data: newPosts, isPending } = useGetAllPosts(buildQuery());
 
   useEffect(() => {
-    if (newPosts?.totalPosts) {
+    if (newPosts?.data) {
       setTotalPages(Math.ceil(newPosts?.data?.length / 10));
     }
   }, [newPosts]);
+
+  const { mutate: deletePost, isPending: isPostDeletePending } =
+    useDeletePost();
+
+  const handleDeletePost = (id: string) => {
+    deletePost(id);
+  };
 
   return (
     <section className="max-w-screen-xl mx-auto p-3 min-h-screen">
@@ -202,8 +209,17 @@ const MyPosts = () => {
                   <TableCell>{post?.isPremium ? "Yes" : "No"}</TableCell>
                   <TableCell className="flex gap-2">
                     <UpdateModal userData={data} postId={post._id} />
-                    <Button color="danger" size="sm" variant="shadow">
-                      <MdDelete className="text-lg" />
+                    <Button
+                      onClick={() => handleDeletePost(post._id)}
+                      color="danger"
+                      size="sm"
+                      variant="shadow"
+                    >
+                      {isPostDeletePending ? (
+                        <Spinner size="sm" color="white" />
+                      ) : (
+                        <MdDelete className="text-lg" />
+                      )}
                     </Button>
                   </TableCell>
                 </TableRow>

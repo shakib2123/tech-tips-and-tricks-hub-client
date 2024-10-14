@@ -1,5 +1,6 @@
 import {
   createPostIntoDB,
+  deletePost,
   getAllPosts,
   getMyAllPost,
   getPost,
@@ -69,5 +70,20 @@ export const useGetPost = (userId: string) => {
   return useQuery({
     queryKey: ["POST"],
     queryFn: async () => await getPost(userId),
+  });
+};
+
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation<any, Error, string>({
+    mutationKey: ["DELETE_POST"],
+    mutationFn: async (postId) => await deletePost(postId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["MY_POSTS", "ALL_POSTS"] });
+      toast.success("Post deleted successfully");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 };
