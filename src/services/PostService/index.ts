@@ -20,7 +20,14 @@ export const updateVote = async (voteData: Record<string, unknown>) => {
   return res.data;
 };
 
-export const createPostIntoDB = async (userData: Record<string, unknown>) => {
-  const res = await axiosInstance.post(`/posts`, userData);
+export const createPostIntoDB = async (postData: Record<string, unknown>) => {
+  const res = await axiosInstance.post(`/posts`, postData);
+  return res.data;
+};
+export const updatePostIntoDB = async (updateData: Record<string, unknown>) => {
+  const res = await axiosInstance.patch(
+    `/posts/${updateData.postId}`,
+    updateData.postData
+  );
   return res.data;
 };

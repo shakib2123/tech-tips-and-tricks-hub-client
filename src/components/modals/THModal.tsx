@@ -9,7 +9,16 @@ import {
 import { ReactNode } from "react";
 
 interface IProps {
-  buttonText: string;
+  buttonText: string | ReactNode;
+  buttonSize?: "sm" | "md" | "lg";
+  buttonColor?:
+    | "default"
+    | "danger"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "warning"
+    | undefined;
   title: string;
   children: ReactNode;
   buttonVariant?:
@@ -27,6 +36,8 @@ interface IProps {
 
 export default function THModal({
   buttonText,
+  buttonSize = "md",
+  buttonColor = "default",
   title,
   children,
   buttonVariant = "solid",
@@ -38,6 +49,8 @@ export default function THModal({
   return (
     <>
       <Button
+        size={buttonSize}
+        color={buttonColor}
         className={buttonClassName}
         variant={buttonVariant}
         onPress={onOpen}

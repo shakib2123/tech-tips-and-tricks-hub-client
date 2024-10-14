@@ -32,7 +32,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <section className="bg-slate-200 min-w-72 h-full min-h-screen fixed left-0 top-0 p-4 lg:flex flex-col justify-between hidden">
+      <section className="bg-slate-200 min-w-72 h-full min-h-screen fixed left-0 top-0 p-4 lg:flex flex-col justify-between hidden overflow-y-auto">
         <div>
           {/* logo */}
           <div className="border-b border-gray-500 pb-2">
@@ -46,34 +46,35 @@ const Sidebar = () => {
 
           {/* routes */}
           <div className="py-4 flex flex-col gap-2">
-            {userData?.data?.role === "USER"
-              ? userDashboardRoutes?.map((route) => (
-                  <Link key={route.path} href={route.path}>
-                    <div
-                      className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
-                        pathname === route.path
-                          ? "bg-primary-100 text-primary"
-                          : "hover:bg-slate-100 hover:text-primary-500"
-                      }`}
-                    >
-                      {route.icon} {route.name}
-                    </div>
-                  </Link>
-                ))
-              : adminDashboardRoutes?.map((route) => (
-                  <Link key={route.path} href={route.path}>
-                    <div
-                      key={route.path}
-                      className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
-                        pathname === route.path
-                          ? "bg-primary-100 text-primary"
-                          : "hover:bg-slate-100 hover:text-primary-500"
-                      }`}
-                    >
-                      {route.icon} {route.name}
-                    </div>
-                  </Link>
-                ))}
+            {userData?.data?.role === "ADMIN" &&
+              adminDashboardRoutes?.map((route) => (
+                <Link key={route.path} href={route.path}>
+                  <div
+                    key={route.path}
+                    className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
+                      pathname === route.path
+                        ? "bg-primary-100 text-primary"
+                        : "hover:bg-slate-100 hover:text-primary-500"
+                    }`}
+                  >
+                    {route.icon} {route.name}
+                  </div>
+                </Link>
+              ))}
+            {userData?.data?.role === "USER" &&
+              userDashboardRoutes?.map((route) => (
+                <Link key={route.path} href={route.path}>
+                  <div
+                    className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
+                      pathname === route.path
+                        ? "bg-primary-100 text-primary"
+                        : "hover:bg-slate-100 hover:text-primary-500"
+                    }`}
+                  >
+                    {route.icon} {route.name}
+                  </div>
+                </Link>
+              ))}
           </div>
         </div>
 

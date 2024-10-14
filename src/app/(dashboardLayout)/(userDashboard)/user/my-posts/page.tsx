@@ -1,4 +1,5 @@
 "use client";
+import UpdateModal from "@/components/modals/UpdateModal";
 import CreatePost from "@/components/shared/CreatePost";
 import { categories } from "@/constant/constant";
 import { useUser } from "@/context/user.provider";
@@ -8,7 +9,6 @@ import { useGetCurrentUser } from "@/hooks/user.hook";
 import { IPost } from "@/types";
 import {
   Button,
-  getKeyValue,
   Input,
   Pagination,
   Select,
@@ -22,9 +22,7 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import Image from "next/image";
-import { useState } from "react";
-import { FaRegEdit } from "react-icons/fa";
-import { FaBinoculars } from "react-icons/fa6";
+import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 
 const sortingFields = [
@@ -59,18 +57,14 @@ const columns = [
 
 const MyPosts = () => {
   const { user } = useUser();
-  const {
-    data: userData,
-    isPending: isPendingUser,
-    error,
-    isSuccess,
-  } = useGetCurrentUser();
+  const { data: userData } = useGetCurrentUser();
   const data = userData?.data || {};
 
   const [sortValue, setSortValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const debouncedSearchValue = useDebounce(searchValue);
 
   const buildQuery = () => {
@@ -81,12 +75,17 @@ const MyPosts = () => {
     if (sortValue) queryParams.push(`sortValue=${sortValue}`);
     if (filterValue) queryParams.push(`filterValue=${filterValue}`);
     if (pageNumber) queryParams.push(`page=${pageNumber}`);
+    queryParams.push(`limit=10`);
     return queryParams.length ? `?${queryParams.join("&")}` : "";
   };
 
   const { data: newPosts, isPending } = useGetAllPosts(buildQuery());
 
-  console.log(newPosts?.data);
+  useEffect(() => {
+    if (newPosts?.totalPosts) {
+      setTotalPages(Math.ceil(newPosts?.data?.length / 10));
+    }
+  }, [newPosts]);
 
   return (
     <section className="max-w-screen-xl mx-auto p-3 min-h-screen">
@@ -202,9 +201,7 @@ const MyPosts = () => {
                   </TableCell>
                   <TableCell>{post?.isPremium ? "Yes" : "No"}</TableCell>
                   <TableCell className="flex gap-2">
-                    <Button color="primary" size="sm" variant="shadow">
-                      <FaRegEdit className="text-lg" />
-                    </Button>
+                    <UpdateModal userData={data} postId={post._id} />
                     <Button color="danger" size="sm" variant="shadow">
                       <MdDelete className="text-lg" />
                     </Button>
@@ -217,9 +214,10 @@ const MyPosts = () => {
       </div>
 
       {/* pagination */}
-      <div className="my-4 flex justify-center md:justify-start">
+      <div className="my-4 flex justify-center md:justify-start items-center gap-2">
+        <h2>Pages:</h2>{" "}
         <Pagination
-          total={10}
+          total={totalPages}
           onChange={(e) => setPageNumber(e)}
           initialPage={1}
         />

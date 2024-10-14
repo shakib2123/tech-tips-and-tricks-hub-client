@@ -3,6 +3,7 @@ import {
   getAllPosts,
   getMyAllPost,
   getPost,
+  updatePostIntoDB,
   updateVote,
 } from "@/services/PostService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -13,10 +14,24 @@ export const useCreatePost = () => {
   const queryClient = useQueryClient();
   return useMutation<any, Error, FieldValues>({
     mutationKey: ["CREATE_POST"],
-    mutationFn: async (userData) => await createPostIntoDB(userData),
+    mutationFn: async (postData) => await createPostIntoDB(postData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["MY_POSTS", "ALL_POSTS"] });
       toast.success("Post created successfully");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+export const useUpdatePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation<any, Error, FieldValues>({
+    mutationKey: ["UPDATE_POST"],
+    mutationFn: async (updateData) => await updatePostIntoDB(updateData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["MY_POSTS", "ALL_POSTS"] });
+      toast.success("Post updated successfully");
     },
     onError: (error) => {
       toast.error(error.message);
