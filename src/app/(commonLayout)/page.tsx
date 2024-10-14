@@ -40,7 +40,7 @@ export default function NewsFeed() {
 
   return (
     <section className="mt-8 max-w-screen-xl mx-auto px-3 text-gray-900">
-      <div className="flex flex-col lg:flex-row gap-4 md:items-center">
+      <div className="flex flex-col lg:flex-row gap-4 md:items-center bg-slate-200 p-4 rounded-lg">
         <div className="flex-1 flex flex-col md:flex-row items-center gap-4 w-full">
           <Input
             name="search"

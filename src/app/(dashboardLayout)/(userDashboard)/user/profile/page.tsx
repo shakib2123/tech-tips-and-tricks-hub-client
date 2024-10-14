@@ -22,13 +22,13 @@ const UserProfile = () => {
   return (
     <>
       {isPending && <Loading />}
-      <section className="max-w-screen-xl mx-auto px-2 min-h-screen w-full">
-        <div className="bg-slate-200 w-full h-fit rounded-b-lg">
+      <section className="max-w-screen-xl mx-auto p-2 min-h-screen w-full">
+        <div className="bg-slate-200 w-full h-fit rounded-lg">
           <div className="max-w-screen-xl mx-auto">
             {/* Cover Photo */}
             <div
               style={{ backgroundImage: `url(${data.coverPhoto})` }}
-              className="w-full h-64 md:h-80 lg:rounded-b-lg bg-cover bg-center flex items-end justify-end p-4 md:p-8"
+              className="w-full h-64 md:h-80 lg:rounded-lg bg-cover bg-center flex items-end justify-end p-4 md:p-8"
             >
               <ChangeCoverPhoto />
             </div>

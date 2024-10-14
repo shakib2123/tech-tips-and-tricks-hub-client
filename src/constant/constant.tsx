@@ -69,7 +69,7 @@ export const userDashboardRoutes = [
 
   {
     name: "My Posts",
-    path: "/user/posts",
+    path: "/user/my-posts",
     icon: <MdOutlinePostAdd size={24} />,
   },
   {

@@ -47,7 +47,7 @@ const SidebarMobile = () => {
           <NavbarBrand as="li" className="gap-3 max-w-fit">
             <Link className="flex justify-start items-center gap-1" href="/">
               <Logo />
-              <p className="font-bold md:text-lg text-inherit text-gray-100">
+              <p className="font-bold md:text-lg text-inherit text-white">
                 Tech Tips & Tricks Hub
               </p>
             </Link>

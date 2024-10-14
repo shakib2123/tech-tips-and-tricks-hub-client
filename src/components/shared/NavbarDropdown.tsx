@@ -12,7 +12,7 @@ import { useUser } from "@/context/user.provider";
 import { logout } from "@/services/AuthService";
 
 import { useGetCurrentUser } from "@/hooks/user.hook";
-import Link from "next/link";
+
 import { protectedRoutes } from "@/constant/constant";
 
 export default function NavbarDropdown() {
@@ -46,15 +46,11 @@ export default function NavbarDropdown() {
         aria-label="Static Actions"
         className="text-gray-900 hover:text-gray-700"
       >
-        <DropdownItem className="w-full">
-          <Link href={`/profile`} className="w-full">
-            Profile
-          </Link>
+        <DropdownItem href={`/profile`} className="w-full">
+          Profile
         </DropdownItem>
-        <DropdownItem className="w-full">
-          <Link href={`/${userRole}/dashboard`} className="w-full">
-            Dashboard
-          </Link>
+        <DropdownItem href={`/${userRole}/dashboard`} className="w-full">
+          Dashboard
         </DropdownItem>
         <DropdownItem
           onClick={() => handleLogout()}
