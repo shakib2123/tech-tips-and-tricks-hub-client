@@ -50,7 +50,7 @@ export interface IPost {
 
 export interface IComment {
   _id: string;
-  userId: UserReference; // Updated type with the required properties
+  userId: UserReference;
   postId: string | IPost;
   comment: string;
   createdAt: string;

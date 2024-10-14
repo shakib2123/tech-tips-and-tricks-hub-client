@@ -15,12 +15,13 @@ import {
   SelectItem,
   Spinner,
 } from "@nextui-org/react";
-import { categories } from "@/constant/constant";
+
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
 import { uploadImagesToImgbb } from "@/services/ImageBBService";
 import { useCreatePost } from "@/hooks/post.hook";
+import { categories } from "@/constant/constant";
 
 const PostModal = ({ userData }: { userData: IUser }) => {
   const [imageFiles, setImageFiles] = useState<File[] | null>([]);

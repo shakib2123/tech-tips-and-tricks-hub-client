@@ -10,8 +10,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { Avatar } from "@nextui-org/avatar";
 import { useUser } from "@/context/user.provider";
 import { logout } from "@/services/AuthService";
-import { protectedRoutes } from "@/constant/constant";
+
 import { useGetCurrentUser } from "@/hooks/user.hook";
+import Link from "next/link";
+import { protectedRoutes } from "@/constant/constant";
 
 export default function NavbarDropdown() {
   const router = useRouter();
@@ -33,9 +35,7 @@ export default function NavbarDropdown() {
     }
   };
 
-  const handleNavigation = (pathname: string) => {
-    router.push(pathname);
-  };
+  const userRole = user?.role === "USER" ? "user" : "admin";
 
   return (
     <Dropdown>
@@ -46,11 +46,15 @@ export default function NavbarDropdown() {
         aria-label="Static Actions"
         className="text-gray-900 hover:text-gray-700"
       >
-        <DropdownItem onClick={() => handleNavigation("/profile")}>
-          Profile
+        <DropdownItem className="w-full">
+          <Link href={`/profile`} className="w-full">
+            Profile
+          </Link>
         </DropdownItem>
-        <DropdownItem onClick={() => handleNavigation("/user-dashboard")}>
-          Dashboard
+        <DropdownItem className="w-full">
+          <Link href={`/${userRole}/dashboard`} className="w-full">
+            Dashboard
+          </Link>
         </DropdownItem>
         <DropdownItem
           onClick={() => handleLogout()}

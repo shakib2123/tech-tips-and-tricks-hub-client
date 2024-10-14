@@ -71,13 +71,13 @@ function RegisterPage() {
           <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
           <div className="lg:w-[35%]">
             <THForm
-              //! Only for development
-              defaultValues={{
-                name: "Shakib",
-                email: "shakib@gmail.com",
-                mobileNumber: "01711223344",
-                password: "123456",
-              }}
+              // //! Only for development
+              // defaultValues={{
+              //   name: "Shakib",
+              //   email: "shakib@gmail.com",
+              //   mobileNumber: "01711223344",
+              //   password: "123456",
+              // }}
               resolver={zodResolver(registerValidationSchema)}
               onSubmit={onSubmit}
             >

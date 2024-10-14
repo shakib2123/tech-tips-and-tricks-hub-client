@@ -1,4 +1,5 @@
 import ProfilePicture from "@/components/UI/ProfilePicture";
+import { useUser } from "@/context/user.provider";
 import {
   useDeleteComment,
   useGetComments,
@@ -17,6 +18,7 @@ const AllComments = () => {
   const [updatedComment, setUpdatedComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
 
+  const { user } = useUser();
   const { data: comments } = useGetComments();
   const { mutate: deleteComment } = useDeleteComment();
   const {
@@ -58,29 +60,31 @@ const AllComments = () => {
                   })}
                 </p>
               </div>
-              <div className="flex gap-2">
-                <Button
-                  onClick={() => {
-                    setShowEditInput(!showEditInput);
-                    setEditingCommentId(comment?._id);
-                    setUpdatedComment(comment.comment);
-                  }}
-                  size="sm"
-                >
-                  <FaPen className="text-lg" />
-                </Button>
-                <Button
-                  onClick={() => handleDeleteComment(comment._id)}
-                  size="sm"
-                  color="danger"
-                >
-                  <MdDelete className="text-xl" />
-                </Button>
-              </div>
+              {user?._id === comment?.userId._id && (
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => {
+                      setShowEditInput(!showEditInput);
+                      setEditingCommentId(comment?._id);
+                      setUpdatedComment(comment.comment);
+                    }}
+                    size="sm"
+                  >
+                    <FaPen className="text-lg" />
+                  </Button>
+                  <Button
+                    onClick={() => handleDeleteComment(comment._id)}
+                    size="sm"
+                    color="danger"
+                  >
+                    <MdDelete className="text-xl" />
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           <p className="mt-1">{comment.comment}</p>
-          {editingCommentId === comment._id && (
+          {editingCommentId === comment._id && showEditInput && (
             <div className="w-full mt-4 flex gap-2 relative">
               <Textarea
                 onChange={(e) => setUpdatedComment(e.target.value)}

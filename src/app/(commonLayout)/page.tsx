@@ -2,6 +2,7 @@
 import CreatePostInNewsFeed from "@/components/page/NewsFeed/CreatePostInNewsFeed";
 import PostCard from "@/components/page/profile/Post/PostCard";
 import { categories } from "@/constant/constant";
+
 import { useUser } from "@/context/user.provider";
 import useDebounce from "@/hooks/debounce.hook";
 import { useGetAllPosts } from "@/hooks/post.hook";

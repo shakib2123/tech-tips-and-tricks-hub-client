@@ -16,8 +16,9 @@ import NavbarDropdown from "./NavbarDropdown";
 import { Logo } from "@/assets/icons";
 import { useUser } from "@/context/user.provider";
 import { logout } from "@/services/AuthService";
-import { protectedRoutes } from "@/constant/constant";
+
 import { usePathname, useRouter } from "next/navigation";
+import { protectedRoutes } from "@/constant/constant";
 
 export default function Navbar() {
   const router = useRouter();
@@ -35,25 +36,51 @@ export default function Navbar() {
     }
   };
 
+  const userRole = user?.role === "USER" ? "user" : "admin";
+
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="bg-black">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <Link className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold md:text-xl text-inherit">
+            <p className="font-bold md:text-lg text-inherit">
               Tech Tips & Tricks Hub
             </p>
           </Link>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          <Link href="/" aria-current="page">
+          <Link
+            href="/"
+            aria-current="page"
+            className={
+              pathname === "/"
+                ? "text-primary border-b-2  border-primary duration-100 transition-colors hover:text-primary/90"
+                : ""
+            }
+          >
             News Feed
           </Link>
-          <Link href="/about-us" aria-current="page">
+          <Link
+            href="/about-us"
+            aria-current="page"
+            className={
+              pathname === "/about-us"
+                ? "text-primary border-b-2  border-primary duration-100 transition-colors hover:text-primary/90"
+                : ""
+            }
+          >
             About Us
           </Link>
-          <Link href="/contact-us" aria-current="page">
+          <Link
+            href="/contact-us"
+            aria-current="page"
+            className={
+              pathname === "/contact-us"
+                ? "text-primary border-b-2  border-primary duration-100 transition-colors hover:text-primary/90"
+                : ""
+            }
+          >
             Contact Us
           </Link>
         </ul>
@@ -84,7 +111,10 @@ export default function Navbar() {
         <div className="mx-4 mt-2 flex flex-col gap-2">
           <NavbarMenuItem>
             <Link href="/" className="w-full h-full">
-              <Button color="primary" className="w-full h-full">
+              <Button
+                color={pathname === "/" ? "primary" : "default"}
+                className="w-full h-full"
+              >
                 News Feed
               </Button>
             </Link>
@@ -92,15 +122,23 @@ export default function Navbar() {
 
           <NavbarMenuItem>
             <Link href="/profile" className="w-full h-full">
-              <Button color="primary" className="w-full h-full">
+              <Button
+                color={pathname === "/profile" ? "primary" : "default"}
+                className="w-full h-full"
+              >
                 Profile
               </Button>
             </Link>
           </NavbarMenuItem>
 
           <NavbarMenuItem>
-            <Link href="/dashboard" className="w-full h-full">
-              <Button color="primary" className="w-full h-full">
+            <Link href={`${userRole}/dashboard`} className="w-full h-full">
+              <Button
+                color={
+                  pathname === `${userRole}/dashboard` ? "primary" : "default"
+                }
+                className="w-full h-full"
+              >
                 Dashboard
               </Button>
             </Link>
@@ -112,7 +150,10 @@ export default function Navbar() {
               aria-current="page"
               className="w-full h-full"
             >
-              <Button color="primary" className="w-full h-full">
+              <Button
+                color={pathname === "/about-us" ? "primary" : "default"}
+                className="w-full h-full"
+              >
                 About Us
               </Button>
             </Link>
@@ -124,7 +165,10 @@ export default function Navbar() {
               aria-current="page"
               className="w-full h-full"
             >
-              <Button color="primary" className="w-full h-full">
+              <Button
+                color={pathname === "/contact-us" ? "primary" : "default"}
+                className="w-full h-full"
+              >
                 Contact Us
               </Button>
             </Link>
