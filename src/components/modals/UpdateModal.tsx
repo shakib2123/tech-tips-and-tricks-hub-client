@@ -47,7 +47,11 @@ const UpdateModal = ({
     refetch();
   }, [postId, refetch, isFetchData]);
 
-  const { mutate: updatePost, isPending: isUpdatePending } = useUpdatePost();
+  const {
+    mutate: updatePost,
+    isPending: isUpdatePending,
+    isSuccess: isUpdateSuccess,
+  } = useUpdatePost();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
@@ -93,6 +97,14 @@ const UpdateModal = ({
     }
   };
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      setImageFiles([]);
+      setImagePreviews([]);
+      setIsFetchData(false);
+    }
+  }, [isUpdateSuccess]);
 
   return (
     <>

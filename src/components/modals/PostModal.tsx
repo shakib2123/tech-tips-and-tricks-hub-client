@@ -16,7 +16,7 @@ import {
   Spinner,
 } from "@nextui-org/react";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
 import { uploadImagesToImgbb } from "@/services/ImageBBService";
@@ -29,7 +29,7 @@ const PostModal = ({ userData }: { userData: IUser }) => {
 
   const { handleSubmit, control } = useForm();
 
-  const { mutate: createPost, isPending } = useCreatePost();
+  const { mutate: createPost, isPending, isSuccess } = useCreatePost();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
@@ -66,6 +66,13 @@ const PostModal = ({ userData }: { userData: IUser }) => {
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setImageFiles([]);
+      setImagePreviews([]);
+    }
+  }, [isSuccess]);
 
   return (
     <THModal

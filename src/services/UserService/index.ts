@@ -2,7 +2,7 @@
 
 import axiosInstance from "@/lib/AxiosInstance";
 
-export const getUsersFromDB = async ({ role }: { role: string }) => {
+export const getUsersFromDB = async ({ role }: { role?: string }) => {
   const res = await axiosInstance.get(`/users?role=${role}`);
   return res.data;
 };

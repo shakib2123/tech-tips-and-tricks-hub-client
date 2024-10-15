@@ -62,8 +62,9 @@ const SidebarMobile = () => {
           <div className="h-full flex flex-col justify-between">
             {/* routes */}
             <div className="py-4 space-y-2">
-              {userData?.data?.role === "USER"
-                ? userDashboardRoutes?.map((route) => (
+              {userData?.data?.role === "ADMIN" &&
+                adminDashboardRoutes?.map((route) => (
+                  <Link key={route.path} href={route.path}>
                     <div
                       key={route.path}
                       className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
@@ -72,27 +73,24 @@ const SidebarMobile = () => {
                           : "hover:bg-slate-100 hover:text-primary-500"
                       }`}
                     >
-                      {route.icon}{" "}
-                      <Link href={route.path} className="w-full h-full">
-                        {route.name}
-                      </Link>
+                      {route.icon} {route.name}
                     </div>
-                  ))
-                : adminDashboardRoutes?.map((route) => (
+                  </Link>
+                ))}
+              {userData?.data?.role === "USER" &&
+                userDashboardRoutes?.map((route) => (
+                  <Link key={route.path} href={route.path}>
                     <div
-                      key={route.path}
                       className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 ${
                         pathname === route.path
                           ? "bg-primary-100 text-primary"
                           : "hover:bg-slate-100 hover:text-primary-500"
                       }`}
                     >
-                      {route.icon}{" "}
-                      <Link href={route.path} className="w-full h-full">
-                        {route.name}
-                      </Link>
+                      {route.icon} {route.name}
                     </div>
-                  ))}
+                  </Link>
+                ))}
             </div>
 
             <div className=" py-4 border-t border-gray-500 space-y-3">

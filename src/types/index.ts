@@ -17,6 +17,7 @@ export interface IUser {
     subscriptionDate: Date;
     expirationDate: Date;
   };
+  lastLogin: string;
   isBlocked: boolean;
   isDeleted: boolean;
   createdAt: string;

@@ -118,4 +118,9 @@ export const adminDashboardRoutes = [
     path: "/admin/admins-management",
     icon: <MdAdminPanelSettings size={24} />,
   },
+  {
+    name: "Activity Logs",
+    path: "/admin/activity-logs",
+    icon: <FiActivity size={24} />,
+  },
 ];

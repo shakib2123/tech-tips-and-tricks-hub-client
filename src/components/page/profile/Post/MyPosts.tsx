@@ -13,7 +13,7 @@ const MyPosts = ({ email }: { email: string }) => {
           <Spinner size="lg" />
         </div>
       ) : (
-        <div className="w-full mt-4">
+        <div className="w-full mt-4 space-y-4">
           {posts?.data?.map((post: IPost) => (
             <PostCard key={post._id} post={post} />
           ))}
