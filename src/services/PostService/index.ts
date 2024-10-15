@@ -2,7 +2,7 @@
 
 import axiosInstance from "@/lib/AxiosInstance";
 
-export const getMyAllPost = async (email: string) => {
+export const getMyAllPost = async (email: string | undefined) => {
   const res = await axiosInstance.get(`/posts/my-posts/${email}`);
   return res.data;
 };

@@ -22,10 +22,10 @@ export const useCreateComment = () => {
     },
   });
 };
-export const useGetComments = () => {
+export const useGetComments = (query: Record<string, unknown>) => {
   return useQuery<any, Error, FieldValues>({
     queryKey: ["GET_COMMENTS"],
-    queryFn: async () => await getCommentsFromDB(),
+    queryFn: async () => await getCommentsFromDB(query),
   });
 };
 

@@ -53,7 +53,7 @@ export const useVoteUpdate = () => {
   });
 };
 
-export const useGetMyAllPosts = (email: string) => {
+export const useGetMyAllPosts = (email: string | undefined) => {
   return useQuery({
     queryKey: ["MY_POSTS"],
     queryFn: async () => await getMyAllPost(email),

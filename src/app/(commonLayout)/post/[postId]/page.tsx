@@ -26,10 +26,8 @@ const PostDetails = ({
     }
   }, [pathname]);
 
-  const { data: post, isPending } = useGetPost(postId);
+  const { data: post, isPending, refetch } = useGetPost(postId);
   const user = post?.data?.userId;
-
-  console.log(post);
 
   const htmlContent = post?.data?.description;
   const convertedDescription = htmlToPlainText(htmlContent);
@@ -39,6 +37,9 @@ const PostDetails = ({
     description: convertedDescription,
     url: currentUrl,
   };
+  useEffect(() => {
+    refetch();
+  }, [postId, refetch]);
 
   return (
     <>
@@ -84,7 +85,7 @@ const PostDetails = ({
               <LikeAction post={post?.data} />
               <SharePost shareData={shareData} />
             </div>
-            <CommentAction postId={postId} />
+            <CommentAction author={user._id} postId={postId} />
           </div>
         </section>
       )}

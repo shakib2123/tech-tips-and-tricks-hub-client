@@ -13,13 +13,13 @@ import { FaPen } from "react-icons/fa";
 import { FaLocationArrow } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 
-const AllComments = () => {
+const AllComments = ({ postId }: { postId: string }) => {
   const [showEditInput, setShowEditInput] = useState(false);
   const [updatedComment, setUpdatedComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
 
   const { user } = useUser();
-  const { data: comments } = useGetComments();
+  const { data: comments, refetch } = useGetComments({ postId });
   const { mutate: deleteComment } = useDeleteComment();
   const {
     mutate: updateComment,
@@ -44,6 +44,10 @@ const AllComments = () => {
       setEditingCommentId(null);
     }
   }, [isCommentSuccess]);
+
+  useEffect(() => {
+    refetch();
+  }, [postId, refetch]);
 
   return (
     <div className="mt-6 flex flex-col gap-4">

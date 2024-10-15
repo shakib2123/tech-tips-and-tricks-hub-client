@@ -6,7 +6,13 @@ import AllComments from "./AllComments";
 import { FaLocationArrow } from "react-icons/fa";
 import { useCreateComment } from "@/hooks/comment.hook";
 
-const CommentAction = ({ postId }: { postId: string }) => {
+const CommentAction = ({
+  postId,
+  author,
+}: {
+  postId: string;
+  author: string;
+}) => {
   const [comment, setComment] = useState("");
   const { data: userData, isPending } = useGetCurrentUser();
   const {
@@ -19,6 +25,7 @@ const CommentAction = ({ postId }: { postId: string }) => {
     const commentData = {
       postId,
       userId: userData?.data?._id,
+      author,
       comment,
     };
     if (comment) {
@@ -73,7 +80,7 @@ const CommentAction = ({ postId }: { postId: string }) => {
           </Button>
         </div>
       )}
-      <AllComments />
+      <AllComments postId={postId} />
     </div>
   );
 };
