@@ -18,3 +18,19 @@ export const updateUserInfo = async (
     throw new Error(error);
   }
 };
+export const followingActivity = async ({
+  userEmail,
+  selectedTab,
+}: {
+  userEmail: string | undefined;
+  selectedTab: string;
+}) => {
+  try {
+    const res = await axiosInstance.get(
+      `/users/following-activity?email=${userEmail}&tab=${selectedTab}`
+    );
+    return res.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
