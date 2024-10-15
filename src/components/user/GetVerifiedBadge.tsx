@@ -1,4 +1,4 @@
-import { useGetUserVerification } from "@/hooks/user.hook";
+import { useGetUserVerification } from "@/hooks/payment.hook";
 import { IUser } from "@/types";
 import { Button, Spinner } from "@nextui-org/react";
 import { loadStripe } from "@stripe/stripe-js";

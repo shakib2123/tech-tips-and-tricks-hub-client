@@ -58,6 +58,20 @@ export interface IComment {
   __v: number;
 }
 
+export interface IPayment {
+  _id: string;
+  email: string;
+  name: string;
+  amount: number;
+  description: string;
+  subscriptionDate: string;
+  expireSubscriptionDate: string;
+  transactionId: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 export interface IInput {
   variant?: "flat" | "bordered" | "faded" | "underlined";
   size?: "sm" | "md" | "lg";

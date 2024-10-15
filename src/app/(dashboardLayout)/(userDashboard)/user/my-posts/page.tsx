@@ -197,7 +197,7 @@ const MyPosts = () => {
                       alt="image"
                       width={100}
                       height={100}
-                      className="object-cover rounded-lg w-[100px] h-[75px]"
+                      className="object-cover rounded-lg min-w-[100px] h-[75px]"
                     />
                   </TableCell>
                   <TableCell>{post?.category}</TableCell>
