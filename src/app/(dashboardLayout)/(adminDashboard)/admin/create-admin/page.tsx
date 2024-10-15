@@ -1,26 +1,18 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@nextui-org/button";
-import Link from "next/link";
-import { FieldValues, SubmitHandler } from "react-hook-form";
 import THForm from "@/components/form/THForm";
 import THInput from "@/components/form/THInput";
-import registerValidationSchema from "@/schemas/register.schema";
 import { useUserRegistration } from "@/hooks/auth.hook";
-import Loading from "@/components/UI/Loading";
-import { Suspense, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useUser } from "@/context/user.provider";
-import { Spinner } from "@nextui-org/react";
-import dynamic from "next/dynamic";
+import registerValidationSchema from "@/schemas/register.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Spinner } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
-function RegisterPage() {
-  const searchParams = useSearchParams();
+import { useEffect } from "react";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 
+const CreateAdmin = () => {
   const router = useRouter();
-
-  const { setIsLoading: userLoading } = useUser();
 
   const {
     mutate: handleUserRegistration,
@@ -28,47 +20,33 @@ function RegisterPage() {
     isSuccess,
   } = useUserRegistration();
 
-  const redirect = searchParams?.get("redirect");
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userData = {
       ...data,
+      role: "ADMIN",
       coverPhoto: "https://flowbite.com/docs/images/examples/image-3@2x.jpg",
       profilePhoto: "https://i.ibb.co.com/GCH2Gjv/blank-profile-picture.webp",
     };
 
     handleUserRegistration(userData);
-
-    userLoading(true);
   };
 
   useEffect(() => {
     if (!isPending && isSuccess) {
-      if (redirect) {
-        router.push(redirect);
-      } else {
-        router.push("/");
-      }
+      router.push("/admin/admins-management");
     }
-  }, [isPending, isSuccess, redirect, router]);
-
-  const loginURL = redirect ? `/login?redirect=${redirect}` : "/login";
+  }, [isPending, isSuccess, router]);
 
   return (
-    <Suspense
-      fallback={
-        <div>
-          <Spinner size="lg" />
-        </div>
-      }
-    >
-      {isPending && <Loading />}
+    <>
       <section className="min-h-[calc(100vh-200px)] h-full overflow-y-auto flex items-center justify-center py-8 bg-white">
         <div className="flex w-full flex-col items-center justify-center text-gray-900">
           <h3 className="my-2 text-lg md:text-2xl font-bold">
-            Login with Tech Tips & Tricks Hub
+            Create Admin Account
           </h3>
-          <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
+          <p className="mb-4">
+            To create an admin account provide the following information
+          </p>
           <div className="lg:w-[35%]">
             <THForm
               resolver={zodResolver(registerValidationSchema)}
@@ -97,20 +75,20 @@ function RegisterPage() {
                 size="lg"
                 type="submit"
               >
-                Sign Up
+                {isPending ? (
+                  <div className="flex items-center justify-center gap-1">
+                    <Spinner size="sm" /> Creating...
+                  </div>
+                ) : (
+                  "Create Admin"
+                )}
               </Button>
             </THForm>
-            <div className="text-center">
-              Already have an account ?{" "}
-              <Link href={loginURL} className="font-bold">
-                Login
-              </Link>
-            </div>
           </div>
         </div>
       </section>
-    </Suspense>
+    </>
   );
-}
+};
 
-export default dynamic(() => Promise.resolve(RegisterPage), { ssr: false });
+export default CreateAdmin;

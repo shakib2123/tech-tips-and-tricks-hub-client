@@ -43,8 +43,8 @@ export const config = {
   matcher: [
     "/profile",
     "/post/:page*",
-    "/admin",
-    "/user",
+    "/admin/:page*",
+    "/user/:page*",
     "/login",
     "/register",
   ],
