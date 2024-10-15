@@ -88,7 +88,7 @@ const Sidebar = () => {
           </div>
           <div
             onClick={handleLogout}
-            className={`w-full p-4  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 hover:bg-slate-100`}
+            className={`w-full p-4 hover:cursor-pointer  duration-100 transition-all font-medium rounded-lg flex items-center gap-2 hover:bg-slate-100`}
           >
             <IoLockClosed size={20} />
             <p className="font-medium text-gray-600">Logout</p>

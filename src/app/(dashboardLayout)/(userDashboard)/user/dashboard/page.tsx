@@ -19,7 +19,9 @@ import {
 
 const UserDashboard = () => {
   const { user } = useUser();
-  const { data: posts, refetch } = useGetMyAllPosts(user?.email);
+  const { data: posts, refetch } = useGetMyAllPosts({ email: user?.email });
+
+  console.log(posts);
 
   const { data: comments, refetch: commentRefetch } = useGetComments({
     author: user?._id,

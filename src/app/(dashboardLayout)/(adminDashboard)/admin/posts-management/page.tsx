@@ -4,7 +4,7 @@ import CreatePost from "@/components/shared/CreatePost";
 import { categories, sortingFields } from "@/constant/constant";
 import { useUser } from "@/context/user.provider";
 import useDebounce from "@/hooks/debounce.hook";
-import { useDeletePost, useGetMyAllPosts } from "@/hooks/post.hook";
+import { useDeletePost, useGetAllPosts } from "@/hooks/post.hook";
 import { useGetCurrentUser } from "@/hooks/user.hook";
 import { IPost } from "@/types";
 import {
@@ -48,7 +48,7 @@ const columns = [
   },
 ];
 
-const MyPosts = () => {
+const PostsManagement = () => {
   const { user } = useUser();
   const { data: userData } = useGetCurrentUser();
   const data = userData?.data || {};
@@ -72,12 +72,7 @@ const MyPosts = () => {
     return queryParams.length ? `?${queryParams.join("&")}` : "";
   };
 
-  const { data: newPosts, isPending } = useGetMyAllPosts({
-    email: user?.email,
-    query: buildQuery(),
-  });
-
-  console.log(newPosts);
+  const { data: newPosts, isPending } = useGetAllPosts(buildQuery());
 
   useEffect(() => {
     if (newPosts?.data) {
@@ -240,4 +235,4 @@ const MyPosts = () => {
   );
 };
 
-export default MyPosts;
+export default PostsManagement;

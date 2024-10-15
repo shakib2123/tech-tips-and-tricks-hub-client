@@ -16,6 +16,14 @@ export const protectedRoutes = [
   "/register",
 ];
 
+export const sortingFields = [
+  { key: "", label: "Default" },
+  { key: "-createdAt", label: "Newest" },
+  { key: "createdAt", label: "Oldest" },
+  { key: "upvote", label: "Most Liked" },
+  { key: "downvote", label: "Less Liked" },
+];
+
 export const categories = [
   {
     name: "Programming",
