@@ -77,8 +77,6 @@ const MyPosts = () => {
     query: buildQuery(),
   });
 
-  console.log(newPosts);
-
   useEffect(() => {
     if (newPosts?.data) {
       setTotalPages(Math.ceil(newPosts?.data?.length / 10));
@@ -170,18 +168,10 @@ const MyPosts = () => {
           <TableBody emptyContent={"No data to display."}>
             {isPending ? (
               <TableRow className="flex items-center justify-between">
-                <TableCell>
-                  <Spinner />
-                </TableCell>
-                <TableCell>
-                  <Spinner />
-                </TableCell>
-                <TableCell>
-                  <Spinner />
-                </TableCell>
-                <TableCell>
-                  <Spinner />
-                </TableCell>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
                 <TableCell>
                   <Spinner />
                 </TableCell>

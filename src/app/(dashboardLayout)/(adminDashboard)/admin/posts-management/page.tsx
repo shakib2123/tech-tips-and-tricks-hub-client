@@ -43,6 +43,10 @@ const columns = [
     label: "Premium",
   },
   {
+    key: "userEmail",
+    label: "User Email",
+  },
+  {
     key: "actions",
     label: "Actions",
   },
@@ -165,18 +169,11 @@ const PostsManagement = () => {
           <TableBody emptyContent={"No data to display."}>
             {isPending ? (
               <TableRow className="flex items-center justify-between">
-                <TableCell>
-                  <Spinner />
-                </TableCell>
-                <TableCell>
-                  <Spinner />
-                </TableCell>
-                <TableCell>
-                  <Spinner />
-                </TableCell>
-                <TableCell>
-                  <Spinner />
-                </TableCell>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
+                <TableCell> </TableCell>
                 <TableCell>
                   <Spinner />
                 </TableCell>
@@ -200,6 +197,7 @@ const PostsManagement = () => {
                     />
                   </TableCell>
                   <TableCell>{post?.isPremium ? "Yes" : "No"}</TableCell>
+                  <TableCell>{post?.userEmail}</TableCell>
                   <TableCell className="flex gap-2">
                     <UpdateModal userData={data} postId={post._id} />
                     <Button
