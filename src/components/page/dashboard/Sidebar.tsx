@@ -32,7 +32,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <section className="bg-slate-200 min-w-72 h-full min-h-screen fixed left-0 top-0 p-4 lg:flex flex-col justify-between hidden overflow-y-auto">
+      <section className="bg-slate-200 min-w-72 h-full min-h-screen fixed left-0 top-0 p-4 lg:flex flex-col justify-between hidden overflow-y-auto shadow-xl shadow-gray-300">
         <div>
           {/* logo */}
           <div className="border-b border-gray-500 pb-2">

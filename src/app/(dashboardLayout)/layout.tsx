@@ -15,7 +15,6 @@ const UserLayout = ({
   return (
     <section className="bg-white text-gray-900">
       <SidebarMobile />
-
       <Sidebar />
       <div className="lg:ml-[290px]">{children}</div>
     </section>
