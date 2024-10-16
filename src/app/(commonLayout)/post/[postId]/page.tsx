@@ -4,6 +4,7 @@ import FollowAction from "@/components/page/profile/Post/FollowAction";
 import ImageGallery from "@/components/page/profile/Post/ImageGallery";
 import LikeAction from "@/components/page/profile/Post/LikeAction";
 import SharePost from "@/components/page/profile/Post/SharePost";
+import DownloadPDF from "@/components/shared/DownloadPDF";
 import Loading from "@/components/UI/Loading";
 import ProfilePicture from "@/components/UI/ProfilePicture";
 import { useGetPost } from "@/hooks/post.hook";
@@ -48,7 +49,7 @@ const PostDetails = ({
       ) : (
         <section className="min-h-screen w-full md:min-w-[700px] lg:min-w-[900px] text-gray-900 flex justify-center px-2 lg:px-0 mx-auto">
           <div className="max-w-screen-xl mx-auto h-fit  rounded-lg bg-slate-300 my-6 py-4">
-            <div className="w-full">
+            <div id="postContent" className="w-full">
               <div className="px-4">
                 <div className="mb-4 flex gap-2">
                   <ProfilePicture src={user?.profilePhoto} />
@@ -84,6 +85,7 @@ const PostDetails = ({
             <div className="flex gap-4 items-center py-4 border-t px-4">
               <LikeAction post={post?.data} />
               <SharePost shareData={shareData} />
+              <DownloadPDF />
             </div>
             <CommentAction author={user._id} postId={postId} />
           </div>
