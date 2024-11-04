@@ -6,10 +6,11 @@ import CreatePost from "@/components/shared/CreatePost";
 import Loading from "@/components/UI/Loading";
 import ChangeCoverPhoto from "@/components/user/ChangeCoverPhoto";
 import ChangeProfilePhoto from "@/components/user/ChangeProfilePhoto";
-import GetVerifiedBadge from "@/components/user/GetVerifiedBadge";
 import UserInfo from "@/components/user/UserInfo";
 import { useGetCurrentUser } from "@/hooks/user.hook";
+import { Button } from "@nextui-org/react";
 import Image from "next/image";
+import Link from "next/link";
 
 const ProfilePage = () => {
   const { data: userData, isPending, error, isSuccess } = useGetCurrentUser();
@@ -53,7 +54,11 @@ const ProfilePage = () => {
                 <div className="flex items-center gap-2">
                   <h1 className="text-[32px] font-bold">{data?.name}</h1>
                   {!data?.isVerified ? (
-                    <GetVerifiedBadge user={data} />
+                    <Link href="/get-verified">
+                      <Button size="sm" color="primary">
+                        Get Verified
+                      </Button>
+                    </Link>
                   ) : (
                     <VerifiedBadge />
                   )}

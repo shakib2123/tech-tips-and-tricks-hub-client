@@ -1,3 +1,4 @@
+import envConfig from "@/config/envConfig";
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
 
@@ -18,7 +19,7 @@ const RealTimeEditor = ({
         render={({ field: { onChange } }) => (
           <Editor
             initialValue={defaultValue}
-            apiKey="ab1sfsw6no41inq1pq0e1f5end6uuxdprl8r1o1t7g6pkc52"
+            apiKey={envConfig.tinymce_api_key}
             init={{
               branding: false,
               placeholder: "Type here...",

@@ -1,10 +1,11 @@
+import { useUser } from "@/context/user.provider";
 import { useGetUserVerification } from "@/hooks/payment.hook";
-import { IUser } from "@/types";
 import { Button, Spinner } from "@nextui-org/react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
 
-const GetVerifiedBadge = ({ user }: { user: IUser }) => {
+const GetVerifiedBadge = () => {
+  const { user } = useUser();
   const {
     mutate: createStripeUserVerification,
     isPending,
@@ -43,11 +44,25 @@ const GetVerifiedBadge = ({ user }: { user: IUser }) => {
   }, [isSuccess, stripeData]);
 
   return (
-    <div>
-      <Button onClick={handlePayment} size="sm" color="primary">
-        {isPending ? <Spinner color="white" size="sm" /> : "Get Verified"}
-      </Button>
-    </div>
+    <section className="mx-auto min-h-screen flex items-center justify-center">
+      <div className="flex flex-col gap-2 max-w-lg w-full p-4 rounded-xl bg-slate-200">
+        <h2 className="text-gray-800 font-medium text-center text-2xl">
+          Get Verified For One Month!
+        </h2>
+        <h2 className="text-gray-600 text-center text-lg font-medium">
+          Total $20/month for subscription
+        </h2>
+        <p className="text-gray-700 text-center">
+          You will be able to access premium posts!
+        </p>
+        <p className="text-gray-700 text-center">
+          You will be able to access all the features!
+        </p>
+        <Button onClick={handlePayment} color="primary" className="w-full">
+          {isPending ? <Spinner color="white" size="sm" /> : "Get Verified"}
+        </Button>
+      </div>
+    </section>
   );
 };
 

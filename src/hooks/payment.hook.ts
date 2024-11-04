@@ -17,7 +17,6 @@ export const useGetUserVerification = () => {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["CURRENT_USER"] });
-      toast.success("User verified successfully!.");
     },
     onError: (error) => {
       toast.error(error.message);

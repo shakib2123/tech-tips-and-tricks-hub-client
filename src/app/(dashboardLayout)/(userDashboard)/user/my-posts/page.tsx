@@ -58,6 +58,7 @@ const MyPosts = () => {
   const [filterValue, setFilterValue] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [deletedPostId, setDeletedPostId] = useState("");
   const debouncedSearchValue = useDebounce(searchValue);
 
   const buildQuery = () => {
@@ -87,6 +88,7 @@ const MyPosts = () => {
     useDeletePost();
 
   const handleDeletePost = (id: string) => {
+    setDeletedPostId(id);
     deletePost(id);
   };
 
@@ -203,7 +205,7 @@ const MyPosts = () => {
                       size="sm"
                       variant="shadow"
                     >
-                      {isPostDeletePending ? (
+                      {isPostDeletePending && post._id === deletedPostId ? (
                         <Spinner size="sm" color="white" />
                       ) : (
                         <MdDelete className="text-lg" />
