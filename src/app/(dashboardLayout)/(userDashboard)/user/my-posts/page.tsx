@@ -73,7 +73,11 @@ const MyPosts = () => {
     return queryParams.length ? `?${queryParams.join("&")}` : "";
   };
 
-  const { data: newPosts, isPending } = useGetMyAllPosts({
+  const {
+    data: newPosts,
+    isPending,
+    refetch,
+  } = useGetMyAllPosts({
     email: user?.email,
     query: buildQuery(),
   });
@@ -84,13 +88,20 @@ const MyPosts = () => {
     }
   }, [newPosts]);
 
-  const { mutate: deletePost, isPending: isPostDeletePending } =
-    useDeletePost();
+  const {
+    mutate: deletePost,
+    isSuccess: isPostDeleteSuccess,
+    isPending: isPostDeletePending,
+  } = useDeletePost();
 
   const handleDeletePost = (id: string) => {
     setDeletedPostId(id);
     deletePost(id);
   };
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, deletedPostId, isPostDeleteSuccess]);
 
   return (
     <section className="max-w-screen-xl mx-auto p-3 min-h-screen">

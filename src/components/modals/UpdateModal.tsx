@@ -40,12 +40,12 @@ const UpdateModal = ({
 
   const { handleSubmit, control } = useForm();
 
-  const { data: post, refetch } = useGetPost(postId);
+  const { data: post, isSuccess, refetch } = useGetPost(postId);
   const postInfo = post?.data;
 
   useEffect(() => {
     refetch();
-  }, [postId, refetch, isFetchData]);
+  }, [postId, refetch, isFetchData, isSuccess]);
 
   const {
     mutate: updatePost,
@@ -103,8 +103,9 @@ const UpdateModal = ({
       setImageFiles([]);
       setImagePreviews([]);
       setIsFetchData(false);
+      refetch();
     }
-  }, [isUpdateSuccess]);
+  }, [isUpdateSuccess, refetch]);
 
   return (
     <>

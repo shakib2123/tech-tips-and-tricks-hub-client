@@ -17,7 +17,15 @@ export const useCreatePost = () => {
     mutationKey: ["CREATE_POST"],
     mutationFn: async (postData) => await createPostIntoDB(postData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["MY_POSTS", "ALL_POSTS"] });
+      queryClient.invalidateQueries({
+        queryKey: ["MY_POSTS"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["ALL_POSTS"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["POST"],
+      });
       toast.success("Post created successfully");
     },
     onError: (error) => {
@@ -25,13 +33,22 @@ export const useCreatePost = () => {
     },
   });
 };
+
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
   return useMutation<any, Error, FieldValues>({
     mutationKey: ["UPDATE_POST"],
     mutationFn: async (updateData) => await updatePostIntoDB(updateData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["MY_POSTS", "ALL_POSTS"] });
+      queryClient.invalidateQueries({
+        queryKey: ["MY_POSTS"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["ALL_POSTS"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["POST"],
+      });
       toast.success("Post updated successfully");
     },
     onError: (error) => {
@@ -39,13 +56,22 @@ export const useUpdatePost = () => {
     },
   });
 };
+
 export const useVoteUpdate = () => {
   const queryClient = useQueryClient();
   return useMutation<any, Error, FieldValues>({
     mutationKey: ["VOTE_UPDATE"],
     mutationFn: async (voteData) => await updateVote(voteData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["POST", "MY_POSTS"] });
+      queryClient.invalidateQueries({
+        queryKey: ["MY_POSTS"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["ALL_POSTS"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["POST"],
+      });
     },
     onError: (error) => {
       toast.error(error.message);
@@ -72,6 +98,7 @@ export const useGetAllPosts = (query?: string) => {
     queryFn: async () => await getAllPosts(query),
   });
 };
+
 export const useGetPost = (userId: string) => {
   return useQuery({
     queryKey: ["POST"],
@@ -85,7 +112,15 @@ export const useDeletePost = () => {
     mutationKey: ["DELETE_POST"],
     mutationFn: async (postId) => await deletePost(postId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["MY_POSTS", "ALL_POSTS"] });
+      queryClient.invalidateQueries({
+        queryKey: ["MY_POSTS"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["ALL_POSTS"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["POST"],
+      });
       toast.success("Post deleted successfully");
     },
     onError: (error) => {
