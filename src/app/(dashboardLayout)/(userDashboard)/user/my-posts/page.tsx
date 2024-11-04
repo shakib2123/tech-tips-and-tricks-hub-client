@@ -101,7 +101,7 @@ const MyPosts = () => {
 
   useEffect(() => {
     refetch();
-  }, [refetch, deletedPostId, isPostDeleteSuccess]);
+  }, [refetch, deletedPostId, isPostDeleteSuccess, user?.email]);
 
   return (
     <section className="max-w-screen-xl mx-auto p-3 min-h-screen">
